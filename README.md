@@ -118,5 +118,5 @@ kestrel/agent.py      segment, do-not-contact, fact research, drafting
 kestrel/guardrails.py generation-time checks
 kestrel/backends.py   LinearBackend (GraphQL) + LocalBackend (simulation)
 config/               client brief (claims, CTA, do-not-contact list) + prospects
-docs/                 guardrail note, Part B, clarifying questions, Loom outline
+docs/                 guardrail note, Part B, clarifying questions, Loom script
 ```

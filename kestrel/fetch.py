@@ -110,10 +110,12 @@ def read_site(home: str, max_pages: int = 8) -> list[Page]:
         candidates.append(link)
     candidates.sort(key=lambda u: (0 if PRIORITY.search(urlparse(u).path) else 1, len(u)))
     pages = [first]
+    got = {first.url.rstrip("/")}
     for link in candidates:
         if len(pages) >= max_pages:
             break
         p = fetch(link)
-        if p:
+        if p and p.url.rstrip("/") not in got:  # two links can redirect to the same page
+            got.add(p.url.rstrip("/"))
             pages.append(p)
     return pages
