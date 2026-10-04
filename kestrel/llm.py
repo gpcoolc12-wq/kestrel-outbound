@@ -31,12 +31,25 @@ def _extract(content: str) -> dict | None:
 
 
 def chat_json(system: str, user: str, temperature: float = 0.2) -> dict:
-    global last_model
     key = os.environ.get("OPENROUTER_API_KEY")
     if not key:
         raise RuntimeError("OPENROUTER_API_KEY is not set (see .env.example)")
     chain = [m.strip() for m in (os.environ.get("OPENROUTER_MODEL") or DEFAULT_CHAIN).split(",") if m.strip()]
     errors = []
+    for rnd in range(ROUNDS):
+        if rnd:
+            time.sleep(30 * rnd)  # every model was rate-limited; free tiers recover within a minute or two
+        out = _try_chain(chain, key, system, user, temperature, errors)
+        if out is not None:
+            return out
+    raise RuntimeError("all models failed: " + "; ".join(errors[-6:]))
+
+
+ROUNDS = 4
+
+
+def _try_chain(chain, key, system, user, temperature, errors):
+    global last_model
     for model in chain:
         if model in _dead:
             continue
@@ -71,4 +84,4 @@ def chat_json(system: str, user: str, temperature: float = 0.2) -> dict:
                 last_model = model
                 return out
             errors.append(f"{model}: no JSON in reply")
-    raise RuntimeError("all models failed: " + "; ".join(errors[-6:]))
+    return None

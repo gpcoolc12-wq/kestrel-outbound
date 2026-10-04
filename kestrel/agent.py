@@ -107,28 +107,48 @@ class Fact:
     url: str
 
 
+FACT_PRIORITY = {"award": 0, "project": 1, "publication": 2, "other": 3, "founding": 4}
+
+
 def research_fact(firm: str, pages: list[Page], log: list | None = None) -> Fact | None:
+    """Collects candidate facts, keeps only those whose quote is verbatim on the cited page, then picks
+    the best kind: a named award beats a named project beats press beats a founding year. A founding
+    year is checkable but makes a weak opener, so it is used only when nothing better is verifiable."""
     sys = (
         "You research an architecture firm from its own website. Find specific facts someone could check on "
-        "that page: a named project, a named award (with the awarding body), or the year the firm was founded. "
-        "Not opinions, not generic statements ('we listen to clients'). Each fact needs a quote copied "
-        "character-for-character from the page text and the URL of that page. Give up to 5 candidates, "
-        "best first: prefer recent, named, distinctive facts."
+        "that page: a named award (with the awarding body), a named project (with its place or client type), "
+        "a publication or press feature, or the year the firm was founded. Not opinions, not generic statements "
+        "('we listen to clients'), not facts about other companies. Each fact needs a quote copied "
+        "character-for-character from the page text and the URL of that page. Give up to 6 candidates and "
+        "label each kind as award|project|publication|founding|other. Prefer recent, named, distinctive facts; "
+        "include at least one award or named project if the site has any."
     )
     user = (f"Firm: {firm}\n\n{_pages_blob(pages)}\n\n"
-            'Return {"candidates": [{"fact": "one sentence", "quote": "verbatim", "url": "..."}]}')
-    rejected = []
+            'Return {"candidates": [{"kind": "award|project|publication|founding|other", "fact": "one sentence", '
+            '"quote": "verbatim", "url": "..."}]}')
+    rejected, verified = [], []
     for _ in range(MAX_ATTEMPTS):
-        out = chat_json(sys, user + (f"\n\nAlready rejected (not verifiable): {json.dumps(rejected)}" if rejected else ""))
+        out = chat_json(sys, user + (f"\n\nAlready rejected (quote not on the cited page): {json.dumps(rejected)}"
+                                     if rejected else ""))
         for c in out.get("candidates") or []:
             page = _page_for(c.get("url", ""), pages)
             ok = bool(page and G.quote_in_page(c.get("quote", ""), page.text))
+            kind = str(c.get("kind", "other")).lower()
+            kind = kind if kind in FACT_PRIORITY else "other"
             if log is not None:
-                log.append({"fact": c.get("fact"), "url": c.get("url"), "verified": ok})
+                log.append({"kind": kind, "fact": c.get("fact"), "url": c.get("url"), "verified": ok})
             if ok:
-                return Fact(c["fact"].strip(), c["quote"].strip(), page.url)
-            rejected.append(c.get("fact"))
-    return None
+                verified.append((FACT_PRIORITY[kind], len(verified), Fact(c["fact"].strip(), c["quote"].strip(), page.url)))
+            else:
+                rejected.append(c.get("fact"))
+        if verified and min(v[0] for v in verified) < FACT_PRIORITY["founding"]:
+            break  # have something better than a founding year
+    if not verified:
+        return None
+    best = min(verified)[2]
+    if log is not None:
+        log.append({"chosen": best.fact})
+    return best
 
 
 # ---------------------------------------------------------------- Step 5
@@ -137,33 +157,68 @@ def assemble(opener: str, cfg: dict) -> str:
     return f"{opener.strip()}\n\n{b['product']}\n\n{b['cta']}\n\n{cfg['sign_off'].strip()}"
 
 
+# Writing-quality checks (not guardrails): stop every email sounding the same.
+STOCK = re.compile(r"\bhow (?:does|do) (?:the |your )?(?:team|you|studio)\b.*\bshare\b|\bcaught my eye\b|"
+                   r"\bi hope\b|\bhope you\b|\breaching out\b|\bimpressive\b|\bamazing\b", re.I)
+
+
+def style_issues(opener: str, avoid: list[str]) -> list[str]:
+    errs = []
+    if STOCK.search(opener):
+        errs.append("STYLE: stock phrasing (e.g. 'How does the team share...', 'caught my eye', 'reaching out'); "
+                    "write a specific second sentence instead")
+    second = re.split(r"(?<=[.!?])\s", opener.strip(), maxsplit=1)[1:] or [""]
+    sw = set(re.findall(r"[a-z']{4,}", second[0].lower()))
+    for other in avoid:
+        ow = set(re.findall(r"[a-z']{4,}", other.lower()))
+        if sw and ow and len(sw & ow) / len(sw | ow) > 0.5:
+            errs.append(f"STYLE: second sentence is too similar to another email in this batch: '{other}'")
+            break
+    return errs
+
+
 def draft_email(firm: str, fact: Fact, page_text: str, cfg: dict, blocklist: list[str],
-                log: list | None = None) -> dict | None:
+                log: list | None = None, avoid: list[str] | None = None) -> dict | None:
+    avoid = avoid or []
     fixed_words = G.word_count(assemble("", cfg))
     budget = cfg["max_words"] - fixed_words
     sys = (
-        "You write the first lines of a cold email to an architecture studio. You write ONLY: a subject line, "
-        f"and an opener of one or two sentences, at most {budget} words, whose first sentence states the fact "
-        "below about the studio, accurately and specifically, in plain words (no flattery, no exclamation marks). "
-        "The second sentence, if any, may ask a light question about how the studio shares rooms, plotters or "
-        "its model shop - without describing any product. Never mention Kestrel, software, features, numbers "
-        "that are not in the quote, other companies, or comparisons. Product lines are added later by code. "
-        "Subject: 3-7 words, about the studio, no product talk."
+        "You write the first lines of a cold email to an architecture studio, for a peer who knows design "
+        f"studios. Write ONLY a subject line and an opener of two sentences, at most {budget} words in total.\n"
+        "Sentence 1 states the fact below about the studio: accurate, specific, plain words, no flattery, no "
+        "exclamation marks.\n"
+        "Sentence 2 links that specific fact to the studio's shared spaces or equipment (conference rooms, the "
+        "model shop, large-format plotters, client presentation space) with a concrete, natural observation or "
+        "question that fits THIS fact. Examples of the register (do not copy): 'A project like that usually means "
+        "weeks of model-shop time and a lot of client walk-throughs.' / 'Deadline weeks must put the plotters "
+        "under real pressure.' Do not start sentence 2 with 'How does' or 'How do'.\n"
+        "Never mention Kestrel, software, booking, calendars, features, numbers not in the quote, other "
+        "companies or people outside the firm, or comparisons. Product lines are added later by code.\n"
+        "Subject: 3-6 words, natural, about the fact (e.g. 'Your MEREDA project of the year'), no product talk."
     )
-    user = (f"Studio: {firm}\nFact: {fact.fact}\nVerbatim source quote: \"{fact.quote}\"\nSource: {fact.url}\n\n"
-            'Return {"subject": "...", "opener": "..."}')
-    for attempt in range(1, MAX_ATTEMPTS + 1):
-        out = chat_json(sys, user, temperature=0.4)
+    user = (f"Studio: {firm}\nFact: {fact.fact}\nVerbatim source quote: \"{fact.quote}\"\nSource: {fact.url}\n"
+            + (f"Other emails in this batch already use these second sentences - write something different:\n- "
+               + "\n- ".join(avoid) + "\n" if avoid else "")
+            + '\nReturn {"subject": "...", "opener": "..."}')
+    for attempt in range(1, MAX_ATTEMPTS + 2):
+        out = chat_json(sys, user, temperature=0.5)
         subject, opener = out.get("subject", "").strip(), out.get("opener", "").strip()
         body = assemble(opener, cfg)
         errs = G.validate_email(subject=subject, opener=opener, body=body, quote=fact.quote,
                                 page_text=page_text, firm=firm, cfg=cfg, blocklist=blocklist)
+        style = style_issues(opener, avoid)
         if log is not None:
-            log.append({"attempt": attempt, "subject": subject, "opener": opener, "violations": errs})
-        if not errs:
+            log.append({"attempt": attempt, "subject": subject, "opener": opener, "violations": errs, "style": style})
+        if not errs and (not style or attempt == MAX_ATTEMPTS + 1):
             return {"subject": subject, "body": body, "words": G.word_count(body), "attempts": attempt}
-        user += "\n\nYour previous draft was rejected by the guardrail checker:\n- " + "\n- ".join(errs) + "\nFix every point."
+        user += ("\n\nYour previous draft was rejected:\n- " + "\n- ".join(errs + style) + "\nFix every point.")
     return None
+
+
+def second_sentence(body: str) -> str:
+    opener = body.split("\n\n")[0]
+    parts = re.split(r"(?<=[.!?])\s", opener.strip(), maxsplit=1)
+    return parts[1] if len(parts) > 1 else ""
 
 
 def to_dict(x):

@@ -16,6 +16,10 @@
 
 Add --local to any command to use the file-based Linear stand-in (local_linear/) instead of Linear.
 Re-running is safe: finished steps are skipped, using state/<backend>.json.
+
+Against real Linear, `run` reuses the research and drafts from the reviewed local simulation
+(state/local.json: segment, fact, draft, human overrides) instead of asking the model again, so
+what you reviewed is exactly what lands in Linear. Pass --fresh-research to research again.
 """
 from __future__ import annotations
 
@@ -52,11 +56,19 @@ def log(msg: str) -> None:
 
 
 class Run:
-    def __init__(self, local: bool):
+    def __init__(self, local: bool, fresh_research: bool = False):
         self.be = LocalBackend(CFG, root=str(ROOT / "local_linear")) if local else LinearBackend(CFG)
         self.state_path = ROOT / "state" / f"{self.be.name}.json"
         self.state = json.loads(self.state_path.read_text()) if self.state_path.exists() else {"prospects": {}}
         self.cache = ROOT / "state" / "site_cache"
+        seed_path = ROOT / "state" / "local.json"
+        self.seed = {}
+        if not local and not fresh_research and seed_path.exists():
+            self.seed = json.loads(seed_path.read_text())["prospects"]
+
+    def reused(self, rec, key):
+        """Result from the reviewed local simulation for this prospect, if any."""
+        return (self.seed.get(rec["n"]) or {}).get(key)
 
     def save(self):
         self.state_path.parent.mkdir(exist_ok=True)
@@ -139,8 +151,11 @@ class Run:
                "status_note": "Issue created; next: do-not-contact check."}
         labels = ["Source: Brief"]
         try:
+            if self.reused(rec, "site_error"):
+                raise SiteUnreachable(self.reused(rec, "site_error"))
             pages = self.pages(rec)
-            prof = A.segment_and_affiliates(rec["firm"], pages)
+            seeded = self.reused(rec, "profile")
+            prof = A.Profile(**seeded) if seeded else A.segment_and_affiliates(rec["firm"], pages)
             rec["profile"] = A.to_dict(prof)
             rec["segment_line"] = f"{prof.segment} — {prof.segment_reason} (source: {prof.segment_url})"
             labels.insert(0, f"Segment: {prof.segment}")
@@ -201,9 +216,13 @@ class Run:
             return
         pages = self.pages(rec)
         trail = []
-        fact = A.research_fact(rec["firm"], pages, log=trail)
+        seeded = self.reused(rec, "fact")
+        if seeded:
+            fact, trail = A.Fact(**seeded), self.reused(rec, "fact_trail") or []
+        else:
+            fact = A.research_fact(rec["firm"], pages, log=trail)
         rec["fact_trail"] = trail
-        discarded = [t for t in trail if not t["verified"]]
+        discarded = [t for t in trail if "fact" in t and not t.get("verified")]
         if not fact:
             rec["status_note"] = "Blocked: agent could not find a fact it could source verbatim."
             self.act(rec, f"Research: no candidate fact could be verified against its source page "
@@ -220,7 +239,15 @@ class Run:
         page = next((p for p in self.pages(rec) if p.url == rec["fact"]["url"]), None)
         fact = A.Fact(**rec["fact"])
         trail = []
-        draft = A.draft_email(rec["firm"], fact, page.text if page else "", CFG, self.blocklist(rec), log=trail)
+        seeded = self.reused(rec, "draft")
+        if seeded:
+            draft, trail = seeded, self.reused(rec, "draft_trail") or []
+            rec["overrides"] = self.reused(rec, "overrides") or []
+        else:
+            others = [A.second_sentence(p["draft"]["body"]) for p in self.state["prospects"].values()
+                      if p.get("draft") and p["n"] != rec["n"]]
+            draft = A.draft_email(rec["firm"], fact, page.text if page else "", CFG, self.blocklist(rec), log=trail,
+                                  avoid=[o for o in others if o])
         rec["draft_trail"] = trail
         if not draft:
             rec["status_note"] = "Blocked: every draft failed the guardrail checks."
@@ -229,8 +256,11 @@ class Run:
             return
         rec["draft"] = draft
         rec["status_note"] = "Draft written; next: send for approval."
-        rej = sum(1 for t in trail if t["violations"])
+        rej = sum(1 for t in trail if t.get("violations"))
         note = f" {rej} earlier draft(s) were rejected by the guardrails and regenerated." if rej else ""
+        for o in rec.get("overrides") or []:
+            note += (f"\n\nIncludes a human override made in review. Reason: {o['reason']}\n"
+                     f"Before: \"{o['before']['opener']}\" → After: \"{o['after']['opener']}\"")
         self.act(rec, f"Draft: wrote email ({draft['words']} words), opening with the sourced fact "
                       f"([source]({fact.url})). Approved claims only, standard sign-off.{note}")
 
@@ -379,12 +409,14 @@ def main():
     ap.add_argument("--health", default="onTrack", choices=["onTrack", "atRisk", "offTrack"])
     ap.add_argument("--agent-link", default="<repo link>")
     ap.add_argument("--loom", default="<Loom link>")
+    ap.add_argument("--fresh-research", action="store_true",
+                    help="real Linear: research and draft again instead of reusing the local simulation's results")
     ap.add_argument("--issue")
     ap.add_argument("--opener")
     ap.add_argument("--subject")
     ap.add_argument("--reason")
     a = ap.parse_args()
-    r = Run(a.local)
+    r = Run(a.local, a.fresh_research)
     {"setup": lambda: r.setup(a.invite), "run": r.run, "assign": r.assign, "docs": r.docs,
      "daily-update": r.daily_update, "submit": lambda: r.submit(a.name, a.health, a.agent_link, a.loom),
      "status": r.status, "ask": r.ask, "accept-invite": r.accept_invite,

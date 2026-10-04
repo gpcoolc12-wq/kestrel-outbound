@@ -78,7 +78,15 @@ To add a firm to the pipeline, append a row to `config/prospects.csv` and run `r
 .venv/bin/python run_sop.py submit --agent-link <repo> --loom <loom>   # Step 9
 ```
 
-Note that `setup --invite` against real Linear sends a real invitation email from Linear.
+Note that `setup --invite` against real Linear sends a real invitation email from Linear. Use an admin API key: the workspace creator is an admin by default, and both inviting members and creating statuses need admin rights.
+
+**`run` reuses the reviewed results.** If you ran the local simulation first, `run` against real Linear does not ask the model again. It reuses that run's segments, do-not-contact results, facts, drafts and human overrides from `state/local.json`, so what you reviewed is exactly what goes into Linear. Every SOP step is still carried out and logged in Linear, in order. Pass `--fresh-research` to research everything again.
+
+**Checking the Linear calls without a key.** `tools/check_linear_api.py` validates every GraphQL query and mutation, plus the input fields and enum values they send, against Linear's published schema:
+
+```bash
+.venv/bin/pip install graphql-core && .venv/bin/python tools/check_linear_api.py
+```
 
 ## How the SOP maps to the code
 
@@ -106,6 +114,8 @@ See `docs/guardrails.md`. They are enforced in code at generation time, and `tes
 
 The agent uses OpenRouter. `OPENROUTER_MODEL` takes a comma-separated fallback chain. The default is Claude Sonnet 5.5, then free Nemotron or Laguna models. A model that is out of credits (402) or rate-limited (429) is skipped. The guardrails don't depend on the model: they are deterministic code checks.
 
+**Free-tier limits.** An OpenRouter key with no credits gets 50 free-model requests per day, and a full 10-firm run uses roughly 40–70. If the daily quota runs out, the agent retries for a few minutes and then stops with "all models failed". Re-run the same command after the quota resets (00:00 UTC). Finished steps are skipped, so it resumes where it stopped. Adding $10 of credit raises the limit to 1,000 requests a day and enables Claude Sonnet.
+
 ## Layout
 
 ```
@@ -117,6 +127,7 @@ kestrel/fetch.py      website reader (direct + reader fallback)
 kestrel/agent.py      segment, do-not-contact, fact research, drafting
 kestrel/guardrails.py generation-time checks
 kestrel/backends.py   LinearBackend (GraphQL) + LocalBackend (simulation)
+tools/                check_linear_api.py - validates the Linear calls against Linear's schema
 config/               client brief (claims, CTA, do-not-contact list) + prospects
 docs/                 guardrail note, Part B, clarifying questions, Loom script
 ```

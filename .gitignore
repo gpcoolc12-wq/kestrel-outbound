@@ -7,3 +7,4 @@ local_linear/
 outbox/
 logs_run.txt
 simulation/
+sim_run.txt
