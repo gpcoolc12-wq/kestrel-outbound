@@ -17,13 +17,28 @@ It runs in two modes, and the code path is the same:
 | `--local` (simulation) | file-based stand-in in `local_linear/` | `.eml` files in `outbox/`, never sent | default; anyone can run it |
 | Linear | real workspace via the GraphQL API (`LINEAR_API_KEY`) | `.eml` files in `outbox/` | real run |
 
+## See a finished run without running anything
+
+`examples/sample-run/` holds the run from 4 October 2026, covering all 10 prospects:
+
+* `viewer.html`: download it and open it in a browser. It's a Linear-style board with every issue, comment, activity entry, project document, project update and outbox email.
+* `local_linear/BOARD.md` and `local_linear/issues/KES-*.md`: the same content as Markdown, readable on GitHub.
+* `outbox/*.eml`: the clarifying-questions email, the daily update and the submission email.
+* `run.log`: every action in order.
+
 ## Quick start (full simulation, about 15–30 min on free models)
 
+Requirements: Python 3.10+, `git`, and an OpenRouter API key (https://openrouter.ai/keys; a free key works).
+
 ```bash
-cp .env.example .env        # then put your OpenRouter key in OPENROUTER_API_KEY
-./simulate.sh --fresh
-open simulation/index.html  # Linear-style board: issues, comments, activity, docs, updates, outbox
+git clone https://github.com/gpcoolc12-wq/kestrel-outbound.git
+cd kestrel-outbound
+cp .env.example .env              # put your key in OPENROUTER_API_KEY
+./simulate.sh --fresh             # creates .venv, installs deps, runs every SOP step locally
+open simulation/index.html        # Linear-style board: issues, comments, activity, docs, updates, outbox
 ```
+
+Windows: run the commands in `simulate.sh` one by one, using `.venv\Scripts\python`.
 
 `simulate.sh` runs, in order:
 

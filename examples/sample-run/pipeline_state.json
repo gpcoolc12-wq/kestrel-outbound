@@ -1,0 +1,850 @@
+{
+  "prospects": {
+    "1": {
+      "n": "1",
+      "firm": "BRIBURN",
+      "city": "Portland",
+      "website": "https://briburn.com",
+      "title": "BRIBURN \u2014 Portland | Outbound",
+      "status": "In Review",
+      "history": [
+        {
+          "at": "2026-10-04T21:21:41",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-04T21:28:20",
+          "action": "Do-not-contact check: **Clear**. firm and named affiliates checked: BRIBURN."
+        },
+        {
+          "at": "2026-10-04T21:28:20",
+          "action": "Moved to In Progress to start research."
+        },
+        {
+          "at": "2026-10-04T21:29:34",
+          "action": "Research: sourced fact \u2014 BRIBURN designed the nation's first Passive House high school for the Maine Coast Waldorf School."
+        },
+        {
+          "at": "2026-10-04T21:29:53",
+          "action": "Draft: wrote email (72 words), opening with the sourced fact ([source](https://briburn.com/)). Approved claims only, standard sign-off."
+        },
+        {
+          "at": "2026-10-04T21:29:53",
+          "action": "Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace."
+        },
+        {
+          "at": "2026-10-04T21:38:56",
+          "action": "Assigned to Nirbhay for approval now that they have joined the workspace."
+        }
+      ],
+      "status_note": "In Review with Nirbhay; waiting for approval.",
+      "profile": {
+        "segment": "Mixed",
+        "segment_reason": "The website explicitly states that BRIBURN specializes in residential, commercial, and institutional projects, and each category has dedicated project pages with multiple built examples, indicating all three are presented as real lines of work.",
+        "segment_quote": "We are an award-winning architectural firm in Maine that specializes in energy-efficient planet-positive designs for residential, commercial, and institutional buildings and spaces.",
+        "segment_url": "https://briburn.com/",
+        "affiliates": []
+      },
+      "segment_line": "Mixed \u2014 The website explicitly states that BRIBURN specializes in residential, commercial, and institutional projects, and each category has dedicated project pages with multiple built examples, indicating all three are presented as real lines of work. (source: https://briburn.com/)",
+      "labels": [
+        "Segment: Mixed",
+        "Source: Brief",
+        "Ready for Approval"
+      ],
+      "issue_id": "KES-1",
+      "identifier": "KES-1",
+      "url": "local_linear/issues/KES-1.md",
+      "dnc": {
+        "result": "Clear",
+        "detail": "firm and named affiliates checked: BRIBURN"
+      },
+      "dnc_done": true,
+      "dnc_line": "Clear (firm and parent/affiliates checked: none named on the website)",
+      "fact_trail": [
+        {
+          "fact": "BRIBURN designed the nation's first Passive House high school for the Maine Coast Waldorf School.",
+          "url": "https://briburn.com/",
+          "verified": true
+        }
+      ],
+      "fact": {
+        "fact": "BRIBURN designed the nation's first Passive House high school for the Maine Coast Waldorf School.",
+        "quote": "BRIBURN has brought to fruition the Nation's first Passive House high school (for the Maine Coast Waldorf School)",
+        "url": "https://briburn.com/"
+      },
+      "draft_trail": [
+        {
+          "attempt": 1,
+          "subject": "BRIBURN's Passive House high school",
+          "opener": "BRIBURN designed the nation's first Passive House high school for the Maine Coast Waldorf School. How does the team share the model shop?",
+          "violations": []
+        }
+      ],
+      "draft": {
+        "subject": "BRIBURN's Passive House high school",
+        "body": "BRIBURN designed the nation's first Passive House high school for the Maine Coast Waldorf School. How does the team share the model shop?\n\nWith Kestrel Rooms you can book rooms, plotters and the model shop from one calendar. It works with Google Calendar and Microsoft Outlook, and setup takes less than a day.\n\nOpen to a 15-minute call? Or start the free 30-day trial, no card needed.\n\nBest,\nThe Kestrel Rooms team",
+        "words": 72,
+        "attempts": 1
+      },
+      "assigned": true
+    },
+    "2": {
+      "n": "2",
+      "firm": "RDS Architects",
+      "city": "Portland",
+      "website": "https://rdsarchs.com",
+      "title": "RDS Architects \u2014 Portland | Outbound",
+      "status": "In Review",
+      "history": [
+        {
+          "at": "2026-10-04T21:22:20",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-04T21:29:53",
+          "action": "Do-not-contact check: **Clear**. firm and named affiliates checked: RDS Architects."
+        },
+        {
+          "at": "2026-10-04T21:29:53",
+          "action": "Moved to In Progress to start research."
+        },
+        {
+          "at": "2026-10-04T21:30:14",
+          "action": "Research: sourced fact \u2014 RDS Architects was founded by Carol Morrissette in 2010."
+        },
+        {
+          "at": "2026-10-04T21:31:02",
+          "action": "Draft: wrote email (68 words), opening with the sourced fact ([source](https://rdsarchs.com/)). Approved claims only, standard sign-off."
+        },
+        {
+          "at": "2026-10-04T21:31:02",
+          "action": "Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace."
+        },
+        {
+          "at": "2026-10-04T21:38:56",
+          "action": "Assigned to Nirbhay for approval now that they have joined the workspace."
+        }
+      ],
+      "status_note": "In Review with Nirbhay; waiting for approval.",
+      "profile": {
+        "segment": "Mixed",
+        "segment_reason": "The website explicitly states the firm focuses on both commercial and residential work, with dedicated sections for 'Commercial Work' and 'Residential Work' on the homepage, and the Projects page lists both commercial and residential projects.",
+        "segment_quote": "Portland-based Architecture firm focused on commercial, residential, and resilient design solutions.",
+        "segment_url": "https://rdsarchs.com/",
+        "affiliates": []
+      },
+      "segment_line": "Mixed \u2014 The website explicitly states the firm focuses on both commercial and residential work, with dedicated sections for 'Commercial Work' and 'Residential Work' on the homepage, and the Projects page lists both commercial and residential projects. (source: https://rdsarchs.com/)",
+      "labels": [
+        "Segment: Mixed",
+        "Source: Brief",
+        "Ready for Approval"
+      ],
+      "issue_id": "KES-2",
+      "identifier": "KES-2",
+      "url": "local_linear/issues/KES-2.md",
+      "dnc": {
+        "result": "Clear",
+        "detail": "firm and named affiliates checked: RDS Architects"
+      },
+      "dnc_done": true,
+      "dnc_line": "Clear (firm and parent/affiliates checked: none named on the website)",
+      "fact_trail": [
+        {
+          "fact": "RDS Architects was founded by Carol Morrissette in 2010.",
+          "url": "https://rdsarchs.com/",
+          "verified": true
+        }
+      ],
+      "fact": {
+        "fact": "RDS Architects was founded by Carol Morrissette in 2010.",
+        "quote": "RDS Architects ( formerly Residential Design Studio ) was founded by Carol Morrissette in 2010 with the intent of providing excellent service and highly personalized design for their clients.",
+        "url": "https://rdsarchs.com/"
+      },
+      "draft_trail": [
+        {
+          "attempt": 1,
+          "subject": "RDS Architects founding and studio resources",
+          "opener": "RDS Architects was founded by Carol Morrissette in 2010. How do you share rooms, plotters, or the model shop?",
+          "violations": []
+        }
+      ],
+      "draft": {
+        "subject": "RDS Architects founding and studio resources",
+        "body": "RDS Architects was founded by Carol Morrissette in 2010. How do you share rooms, plotters, or the model shop?\n\nWith Kestrel Rooms you can book rooms, plotters and the model shop from one calendar. It works with Google Calendar and Microsoft Outlook, and setup takes less than a day.\n\nOpen to a 15-minute call? Or start the free 30-day trial, no card needed.\n\nBest,\nThe Kestrel Rooms team",
+        "words": 68,
+        "attempts": 1
+      },
+      "assigned": true
+    },
+    "3": {
+      "n": "3",
+      "firm": "Ryan Senatore Architecture",
+      "city": "Portland",
+      "website": "http://senatorearchitecture.com",
+      "title": "Ryan Senatore Architecture \u2014 Portland | Outbound",
+      "status": "In Review",
+      "history": [
+        {
+          "at": "2026-10-04T21:23:31",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-04T21:31:02",
+          "action": "Do-not-contact check: **Clear**. firm and named affiliates checked: Ryan Senatore Architecture."
+        },
+        {
+          "at": "2026-10-04T21:31:02",
+          "action": "Moved to In Progress to start research."
+        },
+        {
+          "at": "2026-10-04T21:31:38",
+          "action": "Research: sourced fact \u2014 Ryan Senatore Architecture was founded in 2012."
+        },
+        {
+          "at": "2026-10-04T21:32:28",
+          "action": "Draft: wrote email (66 words), opening with the sourced fact ([source](http://senatorearchitecture.com/studio/)). Approved claims only, standard sign-off."
+        },
+        {
+          "at": "2026-10-04T21:32:28",
+          "action": "Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace."
+        },
+        {
+          "at": "2026-10-04T21:38:56",
+          "action": "Assigned to Nirbhay for approval now that they have joined the workspace."
+        }
+      ],
+      "status_note": "In Review with Nirbhay; waiting for approval.",
+      "profile": {
+        "segment": "Mixed",
+        "segment_reason": "The firm explicitly states it works on both residential developments and commercial ventures, and its portfolio includes multifamily residential, commercial interiors, high-tech laboratories, and manufacturing facilities.",
+        "segment_quote": "Whether you're embarking on a new residential development, commercial venture, or renovation project, RSA is dedicated to ensuring a collaborative experience with exceptional results.",
+        "segment_url": "http://senatorearchitecture.com/studio/",
+        "affiliates": []
+      },
+      "segment_line": "Mixed \u2014 The firm explicitly states it works on both residential developments and commercial ventures, and its portfolio includes multifamily residential, commercial interiors, high-tech laboratories, and manufacturing facilities. (source: http://senatorearchitecture.com/studio/)",
+      "labels": [
+        "Segment: Mixed",
+        "Source: Brief",
+        "Ready for Approval"
+      ],
+      "issue_id": "KES-3",
+      "identifier": "KES-3",
+      "url": "local_linear/issues/KES-3.md",
+      "dnc": {
+        "result": "Clear",
+        "detail": "firm and named affiliates checked: Ryan Senatore Architecture"
+      },
+      "dnc_done": true,
+      "dnc_line": "Clear (firm and parent/affiliates checked: none named on the website)",
+      "fact_trail": [
+        {
+          "fact": "Ryan Senatore Architecture was founded in 2012.",
+          "url": "http://senatorearchitecture.com/studio/",
+          "verified": true
+        }
+      ],
+      "fact": {
+        "fact": "Ryan Senatore Architecture was founded in 2012.",
+        "quote": "In 2012 he formed Ryan Senatore Architecture (RSA)",
+        "url": "http://senatorearchitecture.com/studio/"
+      },
+      "draft_trail": [
+        {
+          "attempt": 1,
+          "subject": "Ryan Senatore Architecture studio",
+          "opener": "Ryan Senatore Architecture was founded in 2012. How does the team share the model shop and plotters?",
+          "violations": []
+        }
+      ],
+      "draft": {
+        "subject": "Ryan Senatore Architecture studio",
+        "body": "Ryan Senatore Architecture was founded in 2012. How does the team share the model shop and plotters?\n\nWith Kestrel Rooms you can book rooms, plotters and the model shop from one calendar. It works with Google Calendar and Microsoft Outlook, and setup takes less than a day.\n\nOpen to a 15-minute call? Or start the free 30-day trial, no card needed.\n\nBest,\nThe Kestrel Rooms team",
+        "words": 66,
+        "attempts": 1
+      },
+      "assigned": true
+    },
+    "4": {
+      "n": "4",
+      "firm": "Casco Bay Design Workshop",
+      "city": "Portland",
+      "website": "https://www.cascobaydesignworkshop.com",
+      "title": "Casco Bay Design Workshop \u2014 Portland | Outbound | DROPPED",
+      "status": "Canceled",
+      "history": [
+        {
+          "at": "2026-10-04T21:23:32",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-04T21:32:28",
+          "action": "Do-not-contact check: **Clear**. firm and named affiliates checked: Casco Bay Design Workshop."
+        },
+        {
+          "at": "2026-10-04T21:32:28",
+          "action": "Moved to In Progress to start research."
+        },
+        {
+          "at": "2026-10-04T21:32:28",
+          "action": "Moved to Canceled and marked DROPPED. Reason: website does not load (https://www.cascobaydesignworkshop.com did not load (direct request and reader both failed)); not replaced with another firm per SOP"
+        }
+      ],
+      "status_note": "Dropped: website does not load (https://www.cascobaydesignworkshop.com did not load (direct request and reader both failed)); not replaced with another firm per SOP",
+      "site_error": "https://www.cascobaydesignworkshop.com did not load (direct request and reader both failed)",
+      "segment_line": "Not set \u2014 the website did not load, so no segment can be chosen from the firm's own website (raised with Nirbhay).",
+      "labels": [
+        "Source: Brief"
+      ],
+      "issue_id": "KES-4",
+      "identifier": "KES-4",
+      "url": "local_linear/issues/KES-4.md",
+      "dnc": {
+        "result": "Clear",
+        "detail": "firm and named affiliates checked: Casco Bay Design Workshop"
+      },
+      "dnc_done": true,
+      "dnc_line": "Clear \u2014 firm name checked against the list; parent/affiliate check not possible because the website did not load"
+    },
+    "5": {
+      "n": "5",
+      "firm": "Ervin Architecture",
+      "city": "Bangor",
+      "website": "https://ervinarchitecture.com",
+      "title": "Ervin Architecture \u2014 Bangor | Outbound",
+      "status": "In Review",
+      "history": [
+        {
+          "at": "2026-10-04T21:24:00",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-04T21:32:28",
+          "action": "Do-not-contact check: **Clear**. firm and named affiliates checked: Ervin Architecture."
+        },
+        {
+          "at": "2026-10-04T21:32:28",
+          "action": "Moved to In Progress to start research."
+        },
+        {
+          "at": "2026-10-04T21:33:18",
+          "action": "Research: sourced fact \u2014 Ervin Architecture won the MEREDA (Maine Real Estate & Development Association) Project of the Year 2023 for the Maine Savings Amphitheater."
+        },
+        {
+          "at": "2026-10-04T21:33:25",
+          "action": "Draft: wrote email (74 words), opening with the sourced fact ([source](https://ervinarchitecture.com/press-awards/)). Approved claims only, standard sign-off."
+        },
+        {
+          "at": "2026-10-04T21:33:25",
+          "action": "Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace."
+        },
+        {
+          "at": "2026-10-04T21:38:56",
+          "action": "Assigned to Nirbhay for approval now that they have joined the workspace."
+        }
+      ],
+      "status_note": "In Review with Nirbhay; waiting for approval.",
+      "profile": {
+        "segment": "Mixed",
+        "segment_reason": "The website explicitly presents both commercial and residential work as core practice areas, with dedicated sections for each and a statement that the firm works across both sectors.",
+        "segment_quote": "Ervin Architecture works across music venues, restaurants and bars, nightclubs, hospitality, medical offices, and custom homes. Most firms with that range don't do design work. Most design firms stay in one sector. We do both.",
+        "segment_url": "https://ervinarchitecture.com/about-us/",
+        "affiliates": []
+      },
+      "segment_line": "Mixed \u2014 The website explicitly presents both commercial and residential work as core practice areas, with dedicated sections for each and a statement that the firm works across both sectors. (source: https://ervinarchitecture.com/about-us/)",
+      "labels": [
+        "Segment: Mixed",
+        "Source: Brief",
+        "Ready for Approval"
+      ],
+      "issue_id": "KES-5",
+      "identifier": "KES-5",
+      "url": "local_linear/issues/KES-5.md",
+      "dnc": {
+        "result": "Clear",
+        "detail": "firm and named affiliates checked: Ervin Architecture"
+      },
+      "dnc_done": true,
+      "dnc_line": "Clear (firm and parent/affiliates checked: none named on the website)",
+      "fact_trail": [
+        {
+          "fact": "Ervin Architecture won the MEREDA (Maine Real Estate & Development Association) Project of the Year 2023 for the Maine Savings Amphitheater.",
+          "url": "https://ervinarchitecture.com/press-awards/",
+          "verified": true
+        }
+      ],
+      "fact": {
+        "fact": "Ervin Architecture won the MEREDA (Maine Real Estate & Development Association) Project of the Year 2023 for the Maine Savings Amphitheater.",
+        "quote": "MEREDA (Maine Real Estate & Development Association) Project of the Year 2023 for Maine Savings Amphitheater",
+        "url": "https://ervinarchitecture.com/press-awards/"
+      },
+      "draft_trail": [
+        {
+          "attempt": 1,
+          "subject": "Ervin Architecture MEREDA Award",
+          "opener": "Ervin Architecture won the MEREDA Project of the Year 2023 for the Maine Savings Amphitheater. How does your team share the model shop and plotters?",
+          "violations": []
+        }
+      ],
+      "draft": {
+        "subject": "Ervin Architecture MEREDA Award",
+        "body": "Ervin Architecture won the MEREDA Project of the Year 2023 for the Maine Savings Amphitheater. How does your team share the model shop and plotters?\n\nWith Kestrel Rooms you can book rooms, plotters and the model shop from one calendar. It works with Google Calendar and Microsoft Outlook, and setup takes less than a day.\n\nOpen to a 15-minute call? Or start the free 30-day trial, no card needed.\n\nBest,\nThe Kestrel Rooms team",
+        "words": 74,
+        "attempts": 1
+      },
+      "assigned": true
+    },
+    "6": {
+      "n": "6",
+      "firm": "Providence Architecture & Building Co.",
+      "city": "Providence",
+      "website": "https://pvd-abc.com",
+      "title": "Providence Architecture & Building Co. \u2014 Providence | Outbound | DROPPED",
+      "status": "Canceled",
+      "history": [
+        {
+          "at": "2026-10-04T21:24:53",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-04T21:33:25",
+          "action": "Do-not-contact check: **Match** with The Providence Group (Existing Kestrel customer). affiliate 'The Providence Group' matches do-not-contact entry 'The Providence Group'. No research or drafting done."
+        },
+        {
+          "at": "2026-10-04T21:33:25",
+          "action": "Moved to Canceled and marked DROPPED. Reason: do-not-contact match \u2014 The Providence Group (Existing Kestrel customer)"
+        }
+      ],
+      "status_note": "Dropped: do-not-contact match \u2014 The Providence Group (Existing Kestrel customer)",
+      "profile": {
+        "segment": "Mixed",
+        "segment_reason": "The firm describes its work as ranging from bespoke single-family homes to urban revitalization projects, and its project list includes both residential (e.g., duplexes, houses) and commercial/institutional projects (e.g., Warwick Building, Durham Boulangerie, Broadway Micro Housing).",
+        "segment_quote": "From designing bespoke single-family homes to revitalizing overlooked urban spaces, we are passionate about creating places that reflect the city\u2019s rich history and dynamic culture.",
+        "segment_url": "https://pvd-abc.com/about-us-1",
+        "affiliates": [
+          {
+            "name": "The Providence Group",
+            "relationship": "affiliate company",
+            "quote": "We are an affiliate company of The Providence Group, a design-centered real estate development firm specializing in activating urban places, further enhancing our commitment to transforming spaces and fostering vibrant communities.",
+            "url": "https://pvd-abc.com/"
+          }
+        ]
+      },
+      "segment_line": "Mixed \u2014 The firm describes its work as ranging from bespoke single-family homes to urban revitalization projects, and its project list includes both residential (e.g., duplexes, houses) and commercial/institutional projects (e.g., Warwick Building, Durham Boulangerie, Broadway Micro Housing). (source: https://pvd-abc.com/about-us-1)",
+      "labels": [
+        "Segment: Mixed",
+        "Source: Brief"
+      ],
+      "issue_id": "KES-6",
+      "identifier": "KES-6",
+      "url": "local_linear/issues/KES-6.md",
+      "dnc": {
+        "result": "Match",
+        "company": "The Providence Group",
+        "reason": "Existing Kestrel customer",
+        "detail": "affiliate 'The Providence Group' matches do-not-contact entry 'The Providence Group'",
+        "url": "https://pvd-abc.com/"
+      },
+      "dnc_done": true,
+      "dnc_line": "Match \u2014 The Providence Group: Existing Kestrel customer (affiliate 'The Providence Group' matches do-not-contact entry 'The Providence Group')"
+    },
+    "7": {
+      "n": "7",
+      "firm": "Jonathan Chambers Architects",
+      "city": "Providence",
+      "website": "https://www.jcari.com",
+      "title": "Jonathan Chambers Architects \u2014 Providence | Outbound",
+      "status": "In Review",
+      "history": [
+        {
+          "at": "2026-10-04T21:25:19",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-04T21:33:25",
+          "action": "Do-not-contact check: **Clear**. firm and named affiliates checked: Jonathan Chambers Architects."
+        },
+        {
+          "at": "2026-10-04T21:33:25",
+          "action": "Moved to In Progress to start research."
+        },
+        {
+          "at": "2026-10-04T21:34:06",
+          "action": "Research: sourced fact \u2014 Jonathan Chambers founded Jonathan Chambers Architects in 2001."
+        },
+        {
+          "at": "2026-10-04T21:34:44",
+          "action": "Draft: wrote email (67 words), opening with the sourced fact ([source](https://www.jcari.com/about)). Approved claims only, standard sign-off."
+        },
+        {
+          "at": "2026-10-04T21:34:44",
+          "action": "Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace."
+        },
+        {
+          "at": "2026-10-04T21:38:56",
+          "action": "Assigned to Nirbhay for approval now that they have joined the workspace."
+        }
+      ],
+      "status_note": "In Review with Nirbhay; waiting for approval.",
+      "profile": {
+        "segment": "Mixed",
+        "segment_reason": "The firm's website explicitly states it completes both residential and commercial/institutional/adaptive-reuse projects, with dedicated portfolio sections for each and numerous examples of both project types.",
+        "segment_quote": "Our completed work includes residential, commercial, institutional, adaptive-reuse and historic restoration projects of various scales throughout New England.",
+        "segment_url": "https://www.jcari.com/",
+        "affiliates": []
+      },
+      "segment_line": "Mixed \u2014 The firm's website explicitly states it completes both residential and commercial/institutional/adaptive-reuse projects, with dedicated portfolio sections for each and numerous examples of both project types. (source: https://www.jcari.com/)",
+      "labels": [
+        "Segment: Mixed",
+        "Source: Brief",
+        "Ready for Approval"
+      ],
+      "issue_id": "KES-7",
+      "identifier": "KES-7",
+      "url": "local_linear/issues/KES-7.md",
+      "dnc": {
+        "result": "Clear",
+        "detail": "firm and named affiliates checked: Jonathan Chambers Architects"
+      },
+      "dnc_done": true,
+      "dnc_line": "Clear (firm and parent/affiliates checked: none named on the website)",
+      "fact_trail": [
+        {
+          "fact": "Jonathan Chambers founded Jonathan Chambers Architects in 2001.",
+          "url": "https://www.jcari.com/about",
+          "verified": true
+        }
+      ],
+      "fact": {
+        "fact": "Jonathan Chambers founded Jonathan Chambers Architects in 2001.",
+        "quote": "After working with another prominent Rhode Island architectural firm for a number of years, he founded Jonathan Chambers Architects in 2001.",
+        "url": "https://www.jcari.com/about"
+      },
+      "draft_trail": [
+        {
+          "attempt": 1,
+          "subject": "Jonathan Chambers Architects studio",
+          "opener": "Jonathan Chambers founded Jonathan Chambers Architects in 2001. How does the team share the model shop and plotters?",
+          "violations": []
+        }
+      ],
+      "draft": {
+        "subject": "Jonathan Chambers Architects studio",
+        "body": "Jonathan Chambers founded Jonathan Chambers Architects in 2001. How does the team share the model shop and plotters?\n\nWith Kestrel Rooms you can book rooms, plotters and the model shop from one calendar. It works with Google Calendar and Microsoft Outlook, and setup takes less than a day.\n\nOpen to a 15-minute call? Or start the free 30-day trial, no card needed.\n\nBest,\nThe Kestrel Rooms team",
+        "words": 67,
+        "attempts": 1
+      },
+      "assigned": true
+    },
+    "8": {
+      "n": "8",
+      "firm": "studioblue Architecture",
+      "city": "Burlington",
+      "website": "https://www.studiobluearchitecture.com",
+      "title": "studioblue Architecture \u2014 Burlington | Outbound",
+      "status": "In Review",
+      "history": [
+        {
+          "at": "2026-10-04T21:25:45",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-04T21:34:44",
+          "action": "Do-not-contact check: **Clear**. firm and named affiliates checked: studioblue Architecture, Ecopixel."
+        },
+        {
+          "at": "2026-10-04T21:34:44",
+          "action": "Moved to In Progress to start research."
+        },
+        {
+          "at": "2026-10-04T21:35:07",
+          "action": "Research: sourced fact \u2014 studioblue Architecture was established in 2008 in Burlington, VT by Donna Church, AIA."
+        },
+        {
+          "at": "2026-10-04T21:35:47",
+          "action": "Draft: wrote email (73 words), opening with the sourced fact ([source](https://www.studiobluearchitecture.com/about)). Approved claims only, standard sign-off. 1 earlier draft(s) were rejected by the guardrails and regenerated."
+        },
+        {
+          "at": "2026-10-04T21:35:47",
+          "action": "Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace."
+        },
+        {
+          "at": "2026-10-04T21:38:56",
+          "action": "Assigned to Nirbhay for approval now that they have joined the workspace."
+        }
+      ],
+      "status_note": "In Review with Nirbhay; waiting for approval.",
+      "profile": {
+        "segment": "Mixed",
+        "segment_reason": "The website explicitly states the firm focuses on both residential and small scale commercial projects, and dedicated pages showcase multiple residential and commercial projects.",
+        "segment_quote": "This woman-owned business focuses on designing residential and small scale commercial projects.",
+        "segment_url": "https://www.studiobluearchitecture.com/about",
+        "affiliates": [
+          {
+            "name": "Ecopixel",
+            "relationship": "carbon-offset partner",
+            "quote": "This site is carbon-offset with Ecopixel",
+            "url": "https://www.studiobluearchitecture.com/"
+          }
+        ]
+      },
+      "segment_line": "Mixed \u2014 The website explicitly states the firm focuses on both residential and small scale commercial projects, and dedicated pages showcase multiple residential and commercial projects. (source: https://www.studiobluearchitecture.com/about)",
+      "labels": [
+        "Segment: Mixed",
+        "Source: Brief",
+        "Ready for Approval"
+      ],
+      "issue_id": "KES-8",
+      "identifier": "KES-8",
+      "url": "local_linear/issues/KES-8.md",
+      "dnc": {
+        "result": "Clear",
+        "detail": "firm and named affiliates checked: studioblue Architecture, Ecopixel"
+      },
+      "dnc_done": true,
+      "dnc_line": "Clear (firm and parent/affiliates checked: Ecopixel)",
+      "fact_trail": [
+        {
+          "fact": "studioblue Architecture was established in 2008 in Burlington, VT by Donna Church, AIA.",
+          "url": "https://www.studiobluearchitecture.com/about",
+          "verified": true
+        }
+      ],
+      "fact": {
+        "fact": "studioblue Architecture was established in 2008 in Burlington, VT by Donna Church, AIA.",
+        "quote": "studioblue Architecture was established in 2008 in Burlington, VT by Donna Church, AIA.",
+        "url": "https://www.studiobluearchitecture.com/about"
+      },
+      "draft_trail": [
+        {
+          "attempt": 1,
+          "subject": "studioblue Architecture Burlington Vermont",
+          "opener": "studioblue Architecture was established in 2008 in Burlington, VT by Donna Church, AIA. How does the team share the model shop and plotters?",
+          "violations": [
+            "subject G2: name 'Vermont' does not appear on the firm's website"
+          ]
+        },
+        {
+          "attempt": 2,
+          "subject": "studioblue Architecture Burlington VT",
+          "opener": "studioblue Architecture was established in 2008 in Burlington, VT by Donna Church, AIA. How does the team share rooms, plotters, or the model shop?",
+          "violations": []
+        }
+      ],
+      "draft": {
+        "subject": "studioblue Architecture Burlington VT",
+        "body": "studioblue Architecture was established in 2008 in Burlington, VT by Donna Church, AIA. How does the team share rooms, plotters, or the model shop?\n\nWith Kestrel Rooms you can book rooms, plotters and the model shop from one calendar. It works with Google Calendar and Microsoft Outlook, and setup takes less than a day.\n\nOpen to a 15-minute call? Or start the free 30-day trial, no card needed.\n\nBest,\nThe Kestrel Rooms team",
+        "words": 73,
+        "attempts": 2
+      },
+      "assigned": true
+    },
+    "9": {
+      "n": "9",
+      "firm": "G4 Design Studios",
+      "city": "Burlington",
+      "website": "https://www.g4designstudios.com",
+      "title": "G4 Design Studios \u2014 Burlington | Outbound",
+      "status": "In Review",
+      "history": [
+        {
+          "at": "2026-10-04T21:26:41",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-04T21:35:47",
+          "action": "Do-not-contact check: **Clear**. firm and named affiliates checked: G4 Design Studios, Steve Guild Design."
+        },
+        {
+          "at": "2026-10-04T21:35:47",
+          "action": "Moved to In Progress to start research."
+        },
+        {
+          "at": "2026-10-04T21:36:24",
+          "action": "Research: sourced fact \u2014 The firm was renamed from Steve Guild Design to G4 Design Studios in spring 2014."
+        },
+        {
+          "at": "2026-10-04T21:37:00",
+          "action": "Draft: wrote email (74 words), opening with the sourced fact ([source](https://www.g4designstudios.com/meet-the-g4-team)). Approved claims only, standard sign-off."
+        },
+        {
+          "at": "2026-10-04T21:37:00",
+          "action": "Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace."
+        },
+        {
+          "at": "2026-10-04T21:38:56",
+          "action": "Assigned to Nirbhay for approval now that they have joined the workspace."
+        }
+      ],
+      "status_note": "In Review with Nirbhay; waiting for approval.",
+      "profile": {
+        "segment": "Mixed",
+        "segment_reason": "The firm explicitly states its projects range from residential additions/renovations and new houses to office fit-ups, multi-family, and commercial projects, and the projects page shows distinct categories for both private residences and commercial/institutional work (business, multifamily, hospitality, industrial/warehouse, municipalities).",
+        "segment_quote": "Projects range from residential additions/renovations, new houses, and office fit-ups to multi-family and commercial projects.",
+        "segment_url": "https://www.g4designstudios.com/about",
+        "affiliates": [
+          {
+            "name": "Steve Guild Design",
+            "relationship": "former name",
+            "quote": "Steve started Steve Guild Design in the fall of 2001 before the name was changed to G4 Design Studios in the spring of 2014.",
+            "url": "https://www.g4designstudios.com/meet-the-g4-team"
+          }
+        ]
+      },
+      "segment_line": "Mixed \u2014 The firm explicitly states its projects range from residential additions/renovations and new houses to office fit-ups, multi-family, and commercial projects, and the projects page shows distinct categories for both private residences and commercial/institutional work (business, multifamily, hospitality, industrial/warehouse, municipalities). (source: https://www.g4designstudios.com/about)",
+      "labels": [
+        "Segment: Mixed",
+        "Source: Brief",
+        "Ready for Approval"
+      ],
+      "issue_id": "KES-9",
+      "identifier": "KES-9",
+      "url": "local_linear/issues/KES-9.md",
+      "dnc": {
+        "result": "Clear",
+        "detail": "firm and named affiliates checked: G4 Design Studios, Steve Guild Design"
+      },
+      "dnc_done": true,
+      "dnc_line": "Clear (firm and parent/affiliates checked: Steve Guild Design)",
+      "fact_trail": [
+        {
+          "fact": "The firm was renamed from Steve Guild Design to G4 Design Studios in spring 2014.",
+          "url": "https://www.g4designstudios.com/meet-the-g4-team",
+          "verified": true
+        }
+      ],
+      "fact": {
+        "fact": "The firm was renamed from Steve Guild Design to G4 Design Studios in spring 2014.",
+        "quote": "Steve started Steve Guild Design in the fall of 2001 before the name was changed to G4 Design Studios in the spring of 2014.",
+        "url": "https://www.g4designstudios.com/meet-the-g4-team"
+      },
+      "draft_trail": [
+        {
+          "attempt": 1,
+          "subject": "G4 Design Studios renamed in 2014",
+          "opener": "Your firm was renamed from Steve Guild Design to G4 Design Studios in spring 2014. How does the team share the model shop and plotters?",
+          "violations": []
+        }
+      ],
+      "draft": {
+        "subject": "G4 Design Studios renamed in 2014",
+        "body": "Your firm was renamed from Steve Guild Design to G4 Design Studios in spring 2014. How does the team share the model shop and plotters?\n\nWith Kestrel Rooms you can book rooms, plotters and the model shop from one calendar. It works with Google Calendar and Microsoft Outlook, and setup takes less than a day.\n\nOpen to a 15-minute call? Or start the free 30-day trial, no card needed.\n\nBest,\nThe Kestrel Rooms team",
+        "words": 74,
+        "attempts": 1
+      },
+      "assigned": true
+    },
+    "10": {
+      "n": "10",
+      "firm": "Gabriel Stadecker Architect",
+      "city": "Burlington",
+      "website": "https://www.stadecker.com",
+      "title": "Gabriel Stadecker Architect \u2014 Burlington | Outbound",
+      "status": "In Review",
+      "history": [
+        {
+          "at": "2026-10-04T21:28:20",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-04T21:37:00",
+          "action": "Do-not-contact check: **Clear**. firm and named affiliates checked: Gabriel Stadecker Architect."
+        },
+        {
+          "at": "2026-10-04T21:37:00",
+          "action": "Moved to In Progress to start research."
+        },
+        {
+          "at": "2026-10-04T21:37:27",
+          "action": "Research: sourced fact \u2014 The firm completed the 1812 Tavern House project, an interior renovation of a two-story historic tavern in Charlotte, VT, with builder Sutherland Construction and photographer Ryan Bent."
+        },
+        {
+          "at": "2026-10-04T21:37:59",
+          "action": "Draft: wrote email (83 words), opening with the sourced fact ([source](https://www.stadecker.com/work/architecture/1812-tavern-house/)). Approved claims only, standard sign-off."
+        },
+        {
+          "at": "2026-10-04T21:37:59",
+          "action": "Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace."
+        },
+        {
+          "at": "2026-10-04T21:38:48",
+          "action": "Human override of the AI draft. Reason: The agent's opener credited the builder (Sutherland Construction) and the photographer. That names another company (guardrail 3) and puts third parties in the hook. I kept the project and location, cut the third parties, and added a code check so the agent now rejects company-style names itself."
+        },
+        {
+          "at": "2026-10-04T21:38:56",
+          "action": "Assigned to Nirbhay for approval now that they have joined the workspace."
+        }
+      ],
+      "status_note": "In Review with Nirbhay; waiting for approval.",
+      "profile": {
+        "segment": "Mixed",
+        "segment_reason": "The Work page lists both commercial projects (Apple Computer Retail, Burlington Free Press, Edmunds Campus Park, Union Square Park) and residential projects (1812 Tavern House, Colchester Lake House, Tree House, South Burlington Modern, Martha's Vineyard Guesthouse), and the category tags include both \"commercial\" and \"residential\".",
+        "segment_quote": "Apple Computer Retail BOSTON, MA Burlington Free Press BURLINGTON, VT Burlington Historic 5 BURLINGTON, VT Burlington Historic 6 BURLINGTON, VT Edmunds Campus Park BURLINGTON, VT Union Square Park NEW YORK, NY Tree House BURLINGTON, VT South Burlington Modern BURLINGTON, VT Martha\u2019s Vineyard Guesthouse CHILMARK, MA",
+        "segment_url": "https://www.stadecker.com/work/",
+        "affiliates": []
+      },
+      "segment_line": "Mixed \u2014 The Work page lists both commercial projects (Apple Computer Retail, Burlington Free Press, Edmunds Campus Park, Union Square Park) and residential projects (1812 Tavern House, Colchester Lake House, Tree House, South Burlington Modern, Martha's Vineyard Guesthouse), and the category tags include both \"commercial\" and \"residential\". (source: https://www.stadecker.com/work/)",
+      "labels": [
+        "Segment: Mixed",
+        "Source: Brief",
+        "Ready for Approval"
+      ],
+      "issue_id": "KES-10",
+      "identifier": "KES-10",
+      "url": "local_linear/issues/KES-10.md",
+      "dnc": {
+        "result": "Clear",
+        "detail": "firm and named affiliates checked: Gabriel Stadecker Architect"
+      },
+      "dnc_done": true,
+      "dnc_line": "Clear (firm and parent/affiliates checked: none named on the website)",
+      "fact_trail": [
+        {
+          "fact": "The firm completed the 1812 Tavern House project, an interior renovation of a two-story historic tavern in Charlotte, VT, with builder Sutherland Construction and photographer Ryan Bent.",
+          "url": "https://www.stadecker.com/work/architecture/1812-tavern-house/",
+          "verified": true
+        }
+      ],
+      "fact": {
+        "fact": "The firm completed the 1812 Tavern House project, an interior renovation of a two-story historic tavern in Charlotte, VT, with builder Sutherland Construction and photographer Ryan Bent.",
+        "quote": "1812 TAVERN CHARLOTTE, VT Interior renovation of two story historic Tavern BUILDER: SUTHERLAND CONSTRUCTION PHOTOGRAPHER: RYAN BENT",
+        "url": "https://www.stadecker.com/work/architecture/1812-tavern-house/"
+      },
+      "draft_trail": [
+        {
+          "attempt": 1,
+          "subject": "1812 Tavern House interior renovation",
+          "opener": "Your firm completed the 1812 Tavern House, a two-story historic tavern renovation in Charlotte, VT, with builder Sutherland Construction and photographer Ryan Bent. How does the team share rooms, plotters, or the model shop?",
+          "violations": []
+        }
+      ],
+      "draft": {
+        "subject": "Your 1812 Tavern House renovation",
+        "body": "Your 1812 Tavern House project, an interior renovation of a two-story historic tavern in Charlotte, VT, caught my eye. How does the team share rooms, plotters or the model shop?\n\nWith Kestrel Rooms you can book rooms, plotters and the model shop from one calendar. It works with Google Calendar and Microsoft Outlook, and setup takes less than a day.\n\nOpen to a 15-minute call? Or start the free 30-day trial, no card needed.\n\nBest,\nThe Kestrel Rooms team",
+        "words": 79,
+        "attempts": 1,
+        "human_override": true
+      },
+      "overrides": [
+        {
+          "at": "2026-10-04T21:38:48",
+          "reason": "The agent's opener credited the builder (Sutherland Construction) and the photographer. That names another company (guardrail 3) and puts third parties in the hook. I kept the project and location, cut the third parties, and added a code check so the agent now rejects company-style names itself.",
+          "before": {
+            "subject": "1812 Tavern House interior renovation",
+            "opener": "Your firm completed the 1812 Tavern House, a two-story historic tavern renovation in Charlotte, VT, with builder Sutherland Construction and photographer Ryan Bent. How does the team share rooms, plotters, or the model shop?"
+          },
+          "after": {
+            "subject": "Your 1812 Tavern House renovation",
+            "opener": "Your 1812 Tavern House project, an interior renovation of a two-story historic tavern in Charlotte, VT, caught my eye. How does the team share rooms, plotters or the model shop?"
+          }
+        }
+      ],
+      "assigned": true
+    }
+  },
+  "project_url": "local_linear/BOARD.md",
+  "invited": true,
+  "docs": {
+    "Guardrail note": "local_linear/docs/Guardrail_note.md",
+    "Part B \u2014 What I would change about this SOP": "local_linear/docs/Part_B_What_I_would_change_about_this_SOP.md"
+  }
+}

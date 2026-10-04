@@ -1,0 +1,96 @@
+[21:21:01] clarifying questions written: /Users/gauravpawar/Downloads/kestrel-outbound/outbox/2026-10-04_2121_Kestrel_Outbound_clarifying_questions.eml
+[21:21:02] Step 1: set up Linear
+[21:21:02] created project: Kestrel Outbound
+[21:21:02] created label: Segment: Residential
+[21:21:02] created label: Segment: Commercial
+[21:21:02] created label: Segment: Mixed
+[21:21:02] created label: Source: Brief
+[21:21:02] created label: Ready for Approval
+[21:21:02] created status: In Review
+[21:21:02] invited nbakshi@invictus.ai (local stand-in: no email is sent)
+[21:21:02] Step 2: one issue per prospect
+[21:21:41]   KES-1: created 'BRIBURN — Portland | Outbound' [Segment: Mixed, Source: Brief]
+[21:22:20]   KES-2: created 'RDS Architects — Portland | Outbound' [Segment: Mixed, Source: Brief]
+[21:23:31]   KES-3: created 'Ryan Senatore Architecture — Portland | Outbound' [Segment: Mixed, Source: Brief]
+[21:23:32]   KES-4: created 'Casco Bay Design Workshop — Portland | Outbound' [Source: Brief]
+[21:24:00]   KES-5: created 'Ervin Architecture — Bangor | Outbound' [Segment: Mixed, Source: Brief]
+[21:24:53]   KES-6: created 'Providence Architecture & Building Co. — Providence | Outbound' [Segment: Mixed, Source: Brief]
+[21:25:19]   KES-7: created 'Jonathan Chambers Architects — Providence | Outbound' [Segment: Mixed, Source: Brief]
+[21:25:45]   KES-8: created 'studioblue Architecture — Burlington | Outbound' [Segment: Mixed, Source: Brief]
+[21:26:41]   KES-9: created 'G4 Design Studios — Burlington | Outbound' [Segment: Mixed, Source: Brief]
+[21:28:20]   KES-10: created 'Gabriel Stadecker Architect — Burlington | Outbound' [Segment: Mixed, Source: Brief]
+[21:28:20] KES-1 BRIBURN
+[21:28:20]   KES-1: Do-not-contact check: **Clear**. firm and named affiliates checked: BRIBURN.
+[21:28:20]   KES-1: Moved to In Progress to start research.
+[21:29:34]   KES-1: Research: sourced fact — BRIBURN designed the nation's first Passive House high school for the Maine Coast Waldorf School.
+[21:29:53]   KES-1: Draft: wrote email (72 words), opening with the sourced fact ([source](https://briburn.com/)). Approved claims only, standard sign-off.
+[21:29:53]   KES-1: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[21:29:53] KES-2 RDS Architects
+[21:29:53]   KES-2: Do-not-contact check: **Clear**. firm and named affiliates checked: RDS Architects.
+[21:29:53]   KES-2: Moved to In Progress to start research.
+[21:30:14]   KES-2: Research: sourced fact — RDS Architects was founded by Carol Morrissette in 2010.
+[21:31:02]   KES-2: Draft: wrote email (68 words), opening with the sourced fact ([source](https://rdsarchs.com/)). Approved claims only, standard sign-off.
+[21:31:02]   KES-2: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[21:31:02] KES-3 Ryan Senatore Architecture
+[21:31:02]   KES-3: Do-not-contact check: **Clear**. firm and named affiliates checked: Ryan Senatore Architecture.
+[21:31:02]   KES-3: Moved to In Progress to start research.
+[21:31:38]   KES-3: Research: sourced fact — Ryan Senatore Architecture was founded in 2012.
+[21:32:28]   KES-3: Draft: wrote email (66 words), opening with the sourced fact ([source](http://senatorearchitecture.com/studio/)). Approved claims only, standard sign-off.
+[21:32:28]   KES-3: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[21:32:28] KES-4 Casco Bay Design Workshop
+[21:32:28]   KES-4: Do-not-contact check: **Clear**. firm and named affiliates checked: Casco Bay Design Workshop.
+[21:32:28]   KES-4: Moved to In Progress to start research.
+[21:32:28]   KES-4: Moved to Canceled and marked DROPPED. Reason: website does not load (https://www.cascobaydesignworkshop.com did not load (direct request and reader both failed)); not replaced with another firm per SOP
+[21:32:28] KES-5 Ervin Architecture
+[21:32:28]   KES-5: Do-not-contact check: **Clear**. firm and named affiliates checked: Ervin Architecture.
+[21:32:28]   KES-5: Moved to In Progress to start research.
+[21:33:18]   KES-5: Research: sourced fact — Ervin Architecture won the MEREDA (Maine Real Estate & Development Association) Project of the Year 2023 for the Maine Savings Amphitheater.
+[21:33:25]   KES-5: Draft: wrote email (74 words), opening with the sourced fact ([source](https://ervinarchitecture.com/press-awards/)). Approved claims only, standard sign-off.
+[21:33:25]   KES-5: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[21:33:25] KES-6 Providence Architecture & Building Co.
+[21:33:25]   KES-6: Do-not-contact check: **Match** with The Providence Group (Existing Kestrel customer). affiliate 'The Providence Group' matches do-not-contact entry 'The Providence Group'. No research or drafting done.
+[21:33:25]   KES-6: Moved to Canceled and marked DROPPED. Reason: do-not-contact match — The Providence Group (Existing Kestrel customer)
+[21:33:25] KES-7 Jonathan Chambers Architects
+[21:33:25]   KES-7: Do-not-contact check: **Clear**. firm and named affiliates checked: Jonathan Chambers Architects.
+[21:33:25]   KES-7: Moved to In Progress to start research.
+[21:34:06]   KES-7: Research: sourced fact — Jonathan Chambers founded Jonathan Chambers Architects in 2001.
+[21:34:44]   KES-7: Draft: wrote email (67 words), opening with the sourced fact ([source](https://www.jcari.com/about)). Approved claims only, standard sign-off.
+[21:34:44]   KES-7: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[21:34:44] KES-8 studioblue Architecture
+[21:34:44]   KES-8: Do-not-contact check: **Clear**. firm and named affiliates checked: studioblue Architecture, Ecopixel.
+[21:34:44]   KES-8: Moved to In Progress to start research.
+[21:35:07]   KES-8: Research: sourced fact — studioblue Architecture was established in 2008 in Burlington, VT by Donna Church, AIA.
+[21:35:47]   KES-8: Draft: wrote email (73 words), opening with the sourced fact ([source](https://www.studiobluearchitecture.com/about)). Approved claims only, standard sign-off. 1 earlier draft(s) were rejected by the guardrails and regenerated.
+[21:35:47]   KES-8: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[21:35:47] KES-9 G4 Design Studios
+[21:35:47]   KES-9: Do-not-contact check: **Clear**. firm and named affiliates checked: G4 Design Studios, Steve Guild Design.
+[21:35:47]   KES-9: Moved to In Progress to start research.
+[21:36:24]   KES-9: Research: sourced fact — The firm was renamed from Steve Guild Design to G4 Design Studios in spring 2014.
+[21:37:00]   KES-9: Draft: wrote email (74 words), opening with the sourced fact ([source](https://www.g4designstudios.com/meet-the-g4-team)). Approved claims only, standard sign-off.
+[21:37:00]   KES-9: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[21:37:00] KES-10 Gabriel Stadecker Architect
+[21:37:00]   KES-10: Do-not-contact check: **Clear**. firm and named affiliates checked: Gabriel Stadecker Architect.
+[21:37:00]   KES-10: Moved to In Progress to start research.
+[21:37:27]   KES-10: Research: sourced fact — The firm completed the 1812 Tavern House project, an interior renovation of a two-story historic tavern in Charlotte, VT, with builder Sutherland Construction and photographer Ryan Bent.
+[21:37:59]   KES-10: Draft: wrote email (83 words), opening with the sourced fact ([source](https://www.stadecker.com/work/architecture/1812-tavern-house/)). Approved claims only, standard sign-off.
+[21:37:59]   KES-10: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[21:38:48]   KES-10: Human override of the AI draft. Reason: The agent's opener credited the builder (Sutherland Construction) and the photographer. That names another company (guardrail 3) and puts third parties in the hook. I kept the project and location, cut the third parties, and added a code check so the agent now rejects company-style names itself.
+[21:38:56] daily update written: /Users/gauravpawar/Downloads/kestrel-outbound/outbox/2026-10-04_2138_Kestrel_Outbound_Update_4_October_2026.eml
+[21:38:56] [simulated] nbakshi@invictus.ai accepted the invite and joined the workspace
+[21:38:56]   KES-1: Assigned to Nirbhay for approval now that they have joined the workspace.
+[21:38:56]   KES-2: Assigned to Nirbhay for approval now that they have joined the workspace.
+[21:38:56]   KES-3: Assigned to Nirbhay for approval now that they have joined the workspace.
+[21:38:56]   KES-5: Assigned to Nirbhay for approval now that they have joined the workspace.
+[21:38:56]   KES-7: Assigned to Nirbhay for approval now that they have joined the workspace.
+[21:38:56]   KES-8: Assigned to Nirbhay for approval now that they have joined the workspace.
+[21:38:56]   KES-9: Assigned to Nirbhay for approval now that they have joined the workspace.
+[21:38:56]   KES-10: Assigned to Nirbhay for approval now that they have joined the workspace.
+[21:38:56] document 'Guardrail note': local_linear/docs/Guardrail_note.md
+[21:38:56] document 'Part B — What I would change about this SOP': local_linear/docs/Part_B_What_I_would_change_about_this_SOP.md
+[21:38:56] project update posted (onTrack): local_linear/BOARD.md#project-updates
+[21:38:56] submission email written: /Users/gauravpawar/Downloads/kestrel-outbound/outbox/2026-10-04_2138_Kestrel_Outbound_Submission_Gaurav_Pawar.eml
+[21:39:10] daily update written: /Users/gauravpawar/Downloads/kestrel-outbound/outbox/2026-10-04_2139_Kestrel_Outbound_Update_4_October_2026.eml
+[21:39:17] project update posted (onTrack): local_linear/BOARD.md#project-updates
+[21:39:17] submission email written: /Users/gauravpawar/Downloads/kestrel-outbound/outbox/2026-10-04_2139_Kestrel_Outbound_Submission_Gaurav_Pawar.eml
+[21:39:23] project update posted (onTrack): local_linear/BOARD.md#project-updates
+[21:39:23] submission email written: /Users/gauravpawar/Downloads/kestrel-outbound/outbox/2026-10-04_2139_Kestrel_Outbound_Submission_Gaurav_Pawar.eml
