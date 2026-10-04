@@ -1,0 +1,34 @@
+{
+  "client": "Kestrel Rooms",
+  "approved_claims": {
+    "one_calendar": "Book rooms, plotters and the model shop from one calendar.",
+    "integrations": "Works with Google Calendar and Microsoft Outlook.",
+    "setup": "Setup takes less than a day.",
+    "trial": "Free 30-day trial, no card needed."
+  },
+  "email_blocks": {
+    "product": "With Kestrel Rooms you can book rooms, plotters and the model shop from one calendar. It works with Google Calendar and Microsoft Outlook, and setup takes less than a day.",
+    "cta": "Open to a 15-minute call? Or start the free 30-day trial, no card needed."
+  },
+  "sign_off": "Best,\nThe Kestrel Rooms team",
+  "sign_off_is_confirmed": false,
+  "max_words": 90,
+  "do_not_contact": [
+    {"company": "The Providence Group", "include_affiliates": true, "reason": "Existing Kestrel customer"},
+    {"company": "Hollis + Reed Architects", "include_affiliates": false, "reason": "Asked not to be contacted"},
+    {"company": "Stonecut Studio", "include_affiliates": false, "reason": "Asked not to be contacted"}
+  ],
+  "linear": {
+    "project": "Kestrel Outbound",
+    "labels": ["Segment: Residential", "Segment: Commercial", "Segment: Mixed", "Source: Brief", "Ready for Approval"],
+    "statuses": {
+      "Todo": "unstarted",
+      "In Progress": "started",
+      "In Review": "started",
+      "Done": "completed",
+      "Canceled": "canceled"
+    },
+    "approver_name": "Nirbhay",
+    "approver_email": "nbakshi@invictus.ai"
+  }
+}
