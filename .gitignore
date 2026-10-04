@@ -6,3 +6,4 @@ logs/
 local_linear/
 outbox/
 logs_run.txt
+simulation/

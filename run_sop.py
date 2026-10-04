@@ -10,6 +10,9 @@
   python run_sop.py status               Print where every prospect stands
   python run_sop.py ask                  Write the clarifying-questions email to outbox/
   python run_sop.py accept-invite        --local only: simulate Nirbhay accepting the invite
+  python run_sop.py override --issue KES-10 --opener "..." [--subject "..."] --reason "..."
+                                         Human override of a draft: re-checked by the same guardrails,
+                                         logged as a comment + description update (Step 7)
 
 Add --local to any command to use the file-based Linear stand-in (local_linear/) instead of Linear.
 Re-running is safe: finished steps are skipped, using state/<backend>.json.
@@ -270,6 +273,13 @@ class Run:
         self.state["docs"] = urls
         self.save()
 
+    @staticmethod
+    def short_reason(p):
+        if p.get("site_error"):
+            return "website does not load"
+        d = p.get("dnc") or {}
+        return f"do-not-contact, affiliate of {d.get('company')}" if d.get("result") == "Match" else p["status_note"]
+
     def summary(self):
         P = list(self.state["prospects"].values())
         review = [p for p in P if p["status"] == "In Review"]
@@ -282,7 +292,7 @@ class Run:
         today = datetime.now().strftime("%-d %B %Y")
         done = (f"Set up the Kestrel Outbound project in Linear; created all {len(P)} issues; "
                 f"{len(review)} researched and drafted, now In Review; "
-                f"{len(dropped)} dropped ({'; '.join(p['firm'] + ': ' + p['status_note'].removeprefix('Dropped: ') for p in dropped)}).")
+                f"{len(dropped)} dropped ({'; '.join(p['firm'] + ': ' + self.short_reason(p) for p in dropped)}).")
         blocked = []
         if any(p["status"] == "In Review" and not p.get("assigned") for p in P):
             blocked.append(f"cannot assign In Review issues to you until you accept the Linear invite")
@@ -302,9 +312,11 @@ class Run:
         P, review, dropped, stuck = self.summary()
         summary = (f"All {len(P)} prospects processed through the SOP. {len(review)} are In Review with "
                    f"{APPROVER} (Ready for Approval), each with a sourced fact and a guardrail-checked draft. "
-                   f"{len(dropped)} dropped: " + "; ".join(f"{p['firm']} ({p['status_note'].removeprefix('Dropped: ')})" for p in dropped)
-                   + ". Open items: Kestrel's standard sign-off is unconfirmed (placeholder in drafts); "
-                   + ("assignment waits on the Linear invite being accepted." if any(not p.get('assigned') for p in review) else "none."))
+                   f"{len(dropped)} dropped: " + "; ".join(f"{p['firm']} ({self.short_reason(p)})" for p in dropped)
+                   + ". Open items: " + ("; ".join(
+                       (["Kestrel's standard sign-off is unconfirmed (placeholder in drafts)"] if not CFG.get("sign_off_is_confirmed") else [])
+                       + (["assignment waits on the Linear invite being accepted"] if any(not p.get("assigned") for p in review) else []))
+                       or "none") + ".")
         url = self.be.project_update(summary, health)
         log(f"project update posted ({health}): {url}")
         docs = self.state.get("docs", {})
@@ -317,6 +329,31 @@ class Run:
             f"5. Loom: {loom}", "", f"Project update: {url}", "", "Thanks,", name])
         path = write_email(ROOT, LIN["approver_email"], f"Kestrel Outbound Submission {name}", body)
         log(f"submission email written: {path}")
+
+    def override(self, ident: str, opener: str | None, subject: str | None, reason: str):
+        rec = next((p for p in self.state["prospects"].values() if p["identifier"] == ident), None)
+        if not rec or not rec.get("draft"):
+            raise SystemExit(f"{ident}: no draft to override")
+        old = rec["draft"]
+        old_opener = old["body"].split("\n\n")[0]
+        opener = opener or old_opener
+        subject = subject or old["subject"]
+        body = A.assemble(opener, CFG)
+        page = next((p for p in self.pages(rec) if p.url == rec["fact"]["url"]), None)
+        errs = A.G.validate_email(subject=subject, opener=opener, body=body, quote=rec["fact"]["quote"],
+                                  page_text=page.text if page else "", firm=rec["firm"], cfg=CFG,
+                                  blocklist=self.blocklist(rec))
+        if errs:
+            raise SystemExit("override rejected by guardrails:\n- " + "\n- ".join(errs))
+        rec.setdefault("overrides", []).append({"at": datetime.now().isoformat(timespec="seconds"), "reason": reason,
+                                               "before": {"subject": old["subject"], "opener": old_opener},
+                                               "after": {"subject": subject, "opener": opener}})
+        rec["draft"] = {"subject": subject, "body": body, "words": A.G.word_count(body), "attempts": old["attempts"],
+                        "human_override": True}
+        self.act(rec, f"Human override of the AI draft. Reason: {reason}\n\nBefore: \"{old_opener}\" "
+                      f"(subject: {old['subject']})\n\nAfter: \"{opener}\" (subject: {subject})\n\n"
+                      f"Re-checked by the same guardrails: pass ({rec['draft']['words']} words). "
+                      f"Source: [{rec['fact']['url']}]({rec['fact']['url']})")
 
     def ask(self):
         path = write_email(ROOT, LIN["approver_email"], "Kestrel Outbound: clarifying questions",
@@ -335,18 +372,23 @@ class Run:
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["setup", "run", "assign", "docs", "daily-update", "submit", "status", "ask", "accept-invite"])
+    ap.add_argument("command", choices=["setup", "run", "assign", "docs", "daily-update", "submit", "status", "ask", "accept-invite", "override"])
     ap.add_argument("--local", action="store_true", help="use the local Linear stand-in")
     ap.add_argument("--invite", action="store_true", help="setup: invite the approver to the workspace")
     ap.add_argument("--name", default="Gaurav Pawar")
     ap.add_argument("--health", default="onTrack", choices=["onTrack", "atRisk", "offTrack"])
     ap.add_argument("--agent-link", default="<repo link>")
     ap.add_argument("--loom", default="<Loom link>")
+    ap.add_argument("--issue")
+    ap.add_argument("--opener")
+    ap.add_argument("--subject")
+    ap.add_argument("--reason")
     a = ap.parse_args()
     r = Run(a.local)
     {"setup": lambda: r.setup(a.invite), "run": r.run, "assign": r.assign, "docs": r.docs,
      "daily-update": r.daily_update, "submit": lambda: r.submit(a.name, a.health, a.agent_link, a.loom),
-     "status": r.status, "ask": r.ask, "accept-invite": r.accept_invite}[a.command]()
+     "status": r.status, "ask": r.ask, "accept-invite": r.accept_invite,
+     "override": lambda: r.override(a.issue, a.opener, a.subject, a.reason)}[a.command]()
 
 
 if __name__ == "__main__":

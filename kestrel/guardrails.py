@@ -91,6 +91,24 @@ def check_model_text(text: str, *, quote: str, page_text: str, firm: str) -> lis
     return errs
 
 
+COMPANY_SUFFIX = re.compile(
+    r"\b((?:[A-Z][\w&'\-]*\s+){0,4}(?:Construction|Builders?|Contracting|Contractors?|Inc|LLC|LLP|Corp|"
+    r"Corporation|Company|Co\.|Group|Associates|Partners|Engineering|Engineers|Development|Developers|"
+    r"Holdings|Realty|Properties|Bank|Photography))\b")
+
+
+def check_third_party_companies(text: str, firm: str) -> list[str]:
+    """G3: company-style names (e.g. 'Sutherland Construction') in model-written text, unless it is the
+    prospect's own name. Catches companies the blocklist cannot know about, such as builders or clients
+    that appear on the prospect's own project pages."""
+    errs = []
+    for m in COMPANY_SUFFIX.finditer(text):
+        name = m.group(1).strip()
+        if norm(name) not in norm(firm):
+            errs.append(f"G3: names another company '{name}'")
+    return errs
+
+
 def check_company_names(email: str, blocklist: list[str]) -> list[str]:
     errs = []
     e = norm(email)
@@ -116,6 +134,7 @@ def validate_email(*, subject: str, opener: str, body: str, quote: str, page_tex
     errs += [f"subject {e}" for e in check_model_text(subject, quote=quote, page_text=page_text, firm=firm)]
     errs += [f"opener {e}" for e in check_model_text(opener, quote=quote, page_text=page_text, firm=firm)]
     errs += check_company_names(subject + "\n" + body, blocklist)
+    errs += check_third_party_companies(subject + "\n" + opener, firm)
     if not opens_with_fact(opener, quote):
         errs.append("SOP: email must open with the sourced fact")
     if not body.startswith(opener.strip()):

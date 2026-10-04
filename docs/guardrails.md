@@ -21,6 +21,7 @@ That means no extra features, numbers, customer names, comparisons, pricing or p
 That covers Kestrel's customers (such as The Providence Group), do-not-contact firms, other prospects on the list, and competitors.
 
 * **Blocklist:** before any draft is accepted, the whole email (subject and body) is checked against a list built at run time from the do-not-contact list, the other nine prospects and known room-booking competitors. Matching uses word boundaries and normalises "+" and "&".
+* **Company-style names:** any name in the model's text ending in Construction, Builders, Inc, LLC, Group, Associates, Partners, Development, Bank… is rejected unless it is the prospect's own name. This catches companies the blocklist can't know about, like a builder credited on the prospect's own project page. I added this check after I had to override a draft that named the firm's builder.
 * **Same root as rule 2:** any capitalised name has to come from the prospect's own page, so the model can't add a company from its own memory either.
 * **Do-not-contact gate:** before any research, the firm and every parent or affiliate named on its site (each backed by a verified quote) are matched against the list. A mention anywhere on the site of a do-not-contact group whose affiliates are also excluded counts as a match. The issue is then dropped, and nothing about that firm is ever researched or drafted.
 

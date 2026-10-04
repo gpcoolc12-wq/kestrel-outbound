@@ -101,7 +101,8 @@ body{{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 -apple-system,
 header{{padding:16px 24px;border-bottom:1px solid var(--line)}} h1{{font-size:18px;margin:0}}
 .muted{{color:var(--muted);font-size:12px}} main{{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:0}}
 @media (max-width:900px){{main{{grid-template-columns:1fr}}}}
-.col{{padding:16px 24px;border-right:1px solid var(--line);min-width:0}}
+.col{{padding:16px 24px;border-right:1px solid var(--line);min-width:0;height:calc(100vh - 92px);overflow:auto}}
+@media (max-width:900px){{.col{{height:auto}}}}
 table{{width:100%;border-collapse:collapse}} td{{padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}}
 tr{{cursor:pointer}} tr:hover{{background:var(--panel)}} .id{{color:var(--muted);white-space:nowrap}} .t{{font-weight:500}}
 .chip{{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:12px;padding:1px 8px;margin:1px 3px 1px 0;font-size:12px;white-space:nowrap}}
@@ -120,7 +121,7 @@ pre{{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace}} a{{color:
 <h3>Project documents</h3>{docs}<h3>Project updates</h3>{ups}<h3>Outbox (simulated — nothing sent)</h3>{''.join(mails) or '<p class="muted">Empty.</p>'}</div>
 <div class="col">{''.join(details)}<p class="muted" id="hint">Click an issue to open it.</p></div></main>
 <script>function show(id){{document.querySelectorAll('.issue').forEach(e=>e.hidden=e.id!==id);document.getElementById('hint').hidden=true;
-history.replaceState(null,'','#'+id)}} if(location.hash) show(location.hash.slice(1)); else {{const f=document.querySelector('.issue'); if(f) show(f.id)}}</script>
+history.replaceState(null,'','#'+id);document.querySelectorAll('.col')[1].scrollTop=0}} if(location.hash) show(location.hash.slice(1)); else {{const f=document.querySelector('.issue'); if(f) show(f.id)}}</script>
 </body></html>"""
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(page)

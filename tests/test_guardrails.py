@@ -45,6 +45,16 @@ def test_g3_company_name_blocked():
     assert any("G3" in e for e in check("Your Harbor Library won a 2021 AIA Maine Honor Award, like BRIBURN."))
 
 
+def test_g3_third_party_company_on_page_blocked():
+    page = PAGE + " Builder: Sutherland Construction."
+    op = "Your Harbor Library won a 2021 AIA Maine Honor Award with Sutherland Construction."
+    errs = G.validate_email(subject="Harbor Library", opener=op, body=assemble(op, CFG), quote=QUOTE,
+                            page_text=page, firm="Acme Studio", cfg=CFG, blocklist=BLOCK)
+    assert any("Sutherland Construction" in e for e in errs)
+    assert G.check_third_party_companies("Providence Architecture & Building Co. built it",
+                                         "Providence Architecture & Building Co.") == []
+
+
 def test_must_open_with_fact():
     assert any("open with" in e for e in check("Hope your week is going well. Your Harbor Library won an award."))
 
