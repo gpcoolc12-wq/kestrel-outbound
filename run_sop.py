@@ -29,6 +29,7 @@ import argparse
 import csv
 import json
 import os
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -51,7 +52,7 @@ APPROVER = LIN["approver_name"]
 
 
 def log(msg: str) -> None:
-    line = f"[{datetime.now():%H:%M:%S}] {msg}"
+    line = f"[{datetime.now():%H:%M:%S}] {str(msg).replace(str(ROOT) + '/', '')}"  # repo-relative paths only
     print(line, flush=True)
     (ROOT / "logs").mkdir(exist_ok=True)
     with open(ROOT / "logs" / f"{datetime.now():%Y-%m-%d}.log", "a") as f:
@@ -77,6 +78,16 @@ class Run:
         self.state_path.parent.mkdir(exist_ok=True)
         self.state_path.write_text(json.dumps(self.state, indent=2))
 
+    @staticmethod
+    def with_links(rec, comment: str) -> str:
+        """Step 7 says every comment has links: add the issue and the firm's website to any comment
+        that doesn't already link somewhere."""
+        if re.search(r"https?://", comment):
+            return comment
+        issue = rec.get("url", "")
+        issue_link = f"[{rec.get('identifier', 'issue')}]({issue})" if issue else ""
+        return comment + "\n\nLinks: " + " · ".join(x for x in (issue_link, f"[website]({rec['website']})") if x)
+
     # Step 7: every action = one comment with links + one description/status update. Always both.
     def act(self, rec: dict, comment: str, *, status: str | None = None, title: str | None = None,
             labels: list | None = None, assignee: str | None = None):
@@ -88,7 +99,8 @@ class Run:
             rec["labels"] = labels
         if assignee:
             rec["assignee"] = APPROVER
-        self.snapshot(rec, comment)
+        self.snapshot(rec, self.with_links(rec, comment))
+        comment = self.with_links(rec, comment)
         self.be.update_issue(rec["issue_id"], title=title, description=render(rec), state=status,
                              labels=labels, assignee_id=assignee)
         self.be.comment(rec["issue_id"], comment)
@@ -344,7 +356,8 @@ class Run:
     def daily_update(self):
         P, review, dropped, stuck = self.summary()
         today = datetime.now().strftime("%-d %B %Y")
-        done = (f"Set up the Kestrel Outbound project in Linear; created all {len(P)} issues; "
+        where = "in Linear" if self.be.name == "linear" else "in the local Linear simulation"
+        done = (f"Set up the Kestrel Outbound project {where}; created all {len(P)} issues; "
                 f"{len(review)} researched and drafted, now In Review; "
                 f"{len(dropped)} dropped ({'; '.join(p['firm'] + ': ' + self.short_reason(p) for p in dropped)}).")
         blocked = []
@@ -374,13 +387,27 @@ class Run:
         url = self.be.project_update(summary, health)
         log(f"project update posted ({health}): {url}")
         docs = self.state.get("docs", {})
+        if self.be.name == "local" and agent_link.startswith("https://github.com/"):
+            base = agent_link.rstrip("/") + "/blob/main/"
+            ws_link = base + "examples/sample-run/local_linear/BOARD.md"
+            guard, partb = base + "docs/guardrails.md", base + "docs/part_b.md"
+            upd = ws_link + "#project-updates"
+            intro = ("I ran the SOP as a local simulation: a file-based stand-in replaces Linear, and emails "
+                     "are written to an outbox, not sent. Setup, results and every deliverable are in "
+                     f"{base}SUBMISSION.md. One command rebuilds it, with no API key: ./demo/run_demo.sh")
+        else:
+            ws_link, upd = self.state.get("project_url", ""), url
+            guard = docs.get("Guardrail note", "")
+            partb = docs.get("Part B — What I would change about this SOP", "")
+            intro = "Links to every deliverable are below."
         body = "\n".join([
-            "Hi Nirbhay,", "", "Here is my submission for the Kestrel Outbound take-home.", "",
-            f"1. Linear workspace and the 10 issues: {self.state.get('project_url', '')}",
+            "Hi Nirbhay,", "", "Here is my submission for the Kestrel Outbound take-home.", "", intro, "",
+            f"1. Workspace and the 10 issues: {ws_link}",
             f"2. Agent (repo + run instructions): {agent_link}",
-            f"3. Guardrail note: {docs.get('Guardrail note', '')}",
-            f"4. Part B: {docs.get('Part B — What I would change about this SOP', '')}",
-            f"5. Loom: {loom}", "", f"Project update: {url}", "", "Thanks,", name])
+            f"3. Guardrail note: {guard}",
+            f"4. Part B: {partb}",
+            f"5. Loom: {loom}", "", f"Project update: {upd}", f"Time taken: {os.environ.get('TIME_TAKEN', '[fill in]')}",
+            "", "Thanks,", name])
         path = write_email(ROOT, LIN["approver_email"], f"Kestrel Outbound Submission {name}", body)
         log(f"submission email written: {path}")
 
