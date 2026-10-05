@@ -1,94 +1,169 @@
-[14:53:43] clarifying questions written: outbox/2026-10-05_1453_Kestrel_Outbound_clarifying_questions.eml
-[14:53:43] Step 1: set up Linear
-[14:53:43] created project: Kestrel Outbound
-[14:53:43] created label: Segment: Residential
-[14:53:43] created label: Segment: Commercial
-[14:53:43] created label: Segment: Mixed
-[14:53:43] created label: Source: Brief
-[14:53:43] created label: Ready for Approval
-[14:53:43] created status: In Review
-[14:53:43] invited nbakshi@invictus.ai (local stand-in: no email is sent)
-[14:53:43] Step 2: one issue per prospect
-[14:53:43]   KES-1: created 'BRIBURN — Portland | Outbound' [Segment: Mixed, Source: Brief]
-[14:53:43]   KES-2: created 'RDS Architects — Portland | Outbound' [Segment: Mixed, Source: Brief]
-[14:53:43]   KES-3: created 'Ryan Senatore Architecture — Portland | Outbound' [Segment: Mixed, Source: Brief]
-[14:53:43]   KES-4: created 'Casco Bay Design Workshop — Portland | Outbound' [Source: Brief]
-[14:53:43]   KES-5: created 'Ervin Architecture — Bangor | Outbound' [Segment: Mixed, Source: Brief]
-[14:53:43]   KES-6: created 'Providence Architecture & Building Co. — Providence | Outbound' [Segment: Residential, Source: Brief]
-[14:53:43]   KES-7: created 'Jonathan Chambers Architects — Providence | Outbound' [Segment: Mixed, Source: Brief]
-[14:53:43]   KES-8: created 'studioblue Architecture — Burlington | Outbound' [Segment: Mixed, Source: Brief]
-[14:53:43]   KES-9: created 'G4 Design Studios — Burlington | Outbound' [Segment: Mixed, Source: Brief]
-[14:53:43]   KES-10: created 'Gabriel Stadecker Architect — Burlington | Outbound' [Segment: Mixed, Source: Brief]
-[14:53:43] KES-1 BRIBURN
-[14:53:43]   KES-1: Do-not-contact check: **Clear**. firm and named affiliates checked: BRIBURN.
-[14:53:43]   KES-1: Moved to In Progress to start research.
-[14:53:43]   KES-1: Research: sourced fact — BRIBURN received the AIA Maine Citation Award for Excellence in Architecture - West End Garden House 2025.
-[14:53:43]   KES-1: Draft: wrote email (80 words), opening with the sourced fact ([source](https://briburn.com/studio/)). Approved claims only, standard sign-off.
-[14:53:43]   KES-1: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
-[14:53:43] KES-2 RDS Architects
-[14:53:43]   KES-2: Do-not-contact check: **Clear**. firm and named affiliates checked: RDS Architects.
-[14:53:43]   KES-2: Moved to In Progress to start research.
-[14:53:43]   KES-2: Research: sourced fact — RDS Architects dates back to 2010.
-[14:53:43]   KES-2: Draft: wrote email (72 words), opening with the sourced fact ([source](https://rdsarchs.com/)). Approved claims only, standard sign-off.
-[14:53:43]   KES-2: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
-[14:53:43] KES-3 Ryan Senatore Architecture
-[14:53:43]   KES-3: Do-not-contact check: **Clear**. firm and named affiliates checked: Ryan Senatore Architecture.
-[14:53:43]   KES-3: Moved to In Progress to start research.
-[14:53:43]   KES-3: Research: sourced fact — Ryan Senatore Architecture's portfolio includes the Hiawatha project.
-[14:53:43]   KES-3: Draft: wrote email (69 words), opening with the sourced fact ([source](http://senatorearchitecture.com/project/hiawatha/)). Approved claims only, standard sign-off.
-[14:53:43]   KES-3: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
-[14:53:43] KES-4 Casco Bay Design Workshop
-[14:53:43]   KES-4: Do-not-contact check: **Clear**. firm and named affiliates checked: Casco Bay Design Workshop.
-[14:53:43]   KES-4: Moved to In Progress to start research.
-[14:53:43]   KES-4: Moved to Canceled and marked DROPPED. Reason: website does not load (https://www.cascobaydesignworkshop.com did not load (direct request and reader both failed; domain is not registered: NXDOMAIN)); not replaced with another firm per SOP
-[14:53:43] KES-5 Ervin Architecture
-[14:53:43]   KES-5: Do-not-contact check: **Clear**. firm and named affiliates checked: Ervin Architecture.
-[14:53:43]   KES-5: Moved to In Progress to start research.
-[14:53:43]   KES-5: Research: sourced fact — Ervin Architecture received the MEREDA (Maine Real Estate & Development Association) Project of the Year 2023 for Maine Savings Amphitheater.
-[14:53:43]   KES-5: Draft: wrote email (80 words), opening with the sourced fact ([source](https://ervinarchitecture.com/press-awards/)). Approved claims only, standard sign-off.
-[14:53:43]   KES-5: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
-[14:53:43] KES-6 Providence Architecture & Building Co.
-[14:53:43]   KES-6: Do-not-contact check: **Match** with The Providence Group (Existing Kestrel customer). affiliate 'The Providence Group' matches do-not-contact entry 'The Providence Group'. No research or drafting done.
-[14:53:43]   KES-6: Moved to Canceled and marked DROPPED. Reason: do-not-contact match — The Providence Group (Existing Kestrel customer)
-[14:53:43] KES-7 Jonathan Chambers Architects
-[14:53:43]   KES-7: Do-not-contact check: **Clear**. firm and named affiliates checked: Jonathan Chambers Architects.
-[14:53:43]   KES-7: Moved to In Progress to start research.
-[14:53:43]   KES-7: Research: sourced fact — Jonathan Chambers Architects' portfolio includes the Raffa Yoga project.
-[14:53:43]   KES-7: Draft: wrote email (73 words), opening with the sourced fact ([source](https://www.jcari.com/raffa-yoga)). Approved claims only, standard sign-off.
-[14:53:43]   KES-7: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
-[14:53:43] KES-8 studioblue Architecture
-[14:53:43]   KES-8: Do-not-contact check: **Clear**. firm and named affiliates checked: studioblue Architecture.
-[14:53:43]   KES-8: Moved to In Progress to start research.
-[14:53:43]   KES-8: Research: sourced fact — studioblue Architecture dates back to 2008.
-[14:53:43]   KES-8: Draft: wrote email (77 words), opening with the sourced fact ([source](https://www.studiobluearchitecture.com/about)). Approved claims only, standard sign-off.
-[14:53:43]   KES-8: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
-[14:53:43] KES-9 G4 Design Studios
-[14:53:43]   KES-9: Do-not-contact check: **Clear**. firm and named affiliates checked: G4 Design Studios.
-[14:53:43]   KES-9: Moved to In Progress to start research.
-[14:53:43]   KES-9: Research: sourced fact — G4 Design Studios dates back to 2001.
-[14:53:43]   KES-9: Draft: wrote email (73 words), opening with the sourced fact ([source](https://www.g4designstudios.com/meet-the-g4-team)). Approved claims only, standard sign-off.
-[14:53:43]   KES-9: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
-[14:53:43] KES-10 Gabriel Stadecker Architect
-[14:53:43]   KES-10: Do-not-contact check: **Clear**. firm and named affiliates checked: Gabriel Stadecker Architect.
-[14:53:43]   KES-10: Moved to In Progress to start research.
-[14:53:43]   KES-10: Research: sourced fact — Gabriel Stadecker Architect's portfolio includes the 1812 Tavern House project.
-[14:53:43]   KES-10: Draft: wrote email (73 words), opening with the sourced fact ([source](https://www.stadecker.com/work/architecture/1812-tavern-house/)). Approved claims only, standard sign-off.
-[14:53:43]   KES-10: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
-[14:53:43] daily update written: outbox/2026-10-05_1453_Kestrel_Outbound_Update_5_October_2026.eml
-[14:53:43] [simulated] nbakshi@invictus.ai accepted the invite and joined the workspace
-[14:53:43]   KES-1: Assigned to Nirbhay for approval now that they have joined the workspace.
-[14:53:43]   KES-2: Assigned to Nirbhay for approval now that they have joined the workspace.
-[14:53:43]   KES-3: Assigned to Nirbhay for approval now that they have joined the workspace.
-[14:53:43]   KES-5: Assigned to Nirbhay for approval now that they have joined the workspace.
-[14:53:43]   KES-7: Assigned to Nirbhay for approval now that they have joined the workspace.
-[14:53:43]   KES-8: Assigned to Nirbhay for approval now that they have joined the workspace.
-[14:53:43]   KES-9: Assigned to Nirbhay for approval now that they have joined the workspace.
-[14:53:43]   KES-10: Assigned to Nirbhay for approval now that they have joined the workspace.
-[14:53:43] document 'Guardrail note': local_linear/docs/Guardrail_note.md
-[14:53:43] document 'Part B — What I would change about this SOP': local_linear/docs/Part_B_What_I_would_change_about_this_SOP.md
-[14:53:43] project update posted (onTrack): local_linear/BOARD.md#project-updates
-[14:53:43] submission email written: outbox/2026-10-05_1453_Kestrel_Outbound_Submission_Gaurav_Pawar.eml
-[14:53:44]   KES-9: Human override of the AI draft. Reason: The agent wrote that G4 Design Studios dates back to 2001, but the source says the firm was Steve Guild Design until it was renamed in 2014. Saying G4 existed in 2001 is a small factual slip a founder would notice, so I used the site's own wording.
-[14:53:44] daily update written: outbox/2026-10-05_1453_Kestrel_Outbound_Update_5_October_2026.eml
-[14:53:44] project update posted (onTrack): local_linear/BOARD.md#project-updates
-[14:53:44] submission email written: outbox/2026-10-05_1453_Kestrel_Outbound_Submission_Gaurav_Pawar.eml
+[15:00:38] clarifying questions written: outbox/2026-10-05_1500_Kestrel_Outbound_clarifying_questions.eml
+[15:00:38] Step 1: set up Linear
+[15:00:38] created project: Kestrel Outbound
+[15:00:38] created label: Segment: Residential
+[15:00:38] created label: Segment: Commercial
+[15:00:38] created label: Segment: Mixed
+[15:00:38] created label: Source: Brief
+[15:00:38] created label: Ready for Approval
+[15:00:38] created status: In Review
+[15:00:38] invited nbakshi@invictus.ai (local stand-in: no email is sent)
+[15:00:38] Step 2: one issue per prospect
+[15:00:38]   KES-1: created 'BRIBURN — Portland | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:38]   KES-2: created 'RDS Architects — Portland | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:38]   KES-3: created 'Ryan Senatore Architecture — Portland | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:38]   KES-4: created 'Casco Bay Design Workshop — Portland | Outbound' [Source: Brief]
+[15:00:38]   KES-5: created 'Ervin Architecture — Bangor | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:38]   KES-6: created 'Providence Architecture & Building Co. — Providence | Outbound' [Segment: Residential, Source: Brief]
+[15:00:38]   KES-7: created 'Jonathan Chambers Architects — Providence | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:38]   KES-8: created 'studioblue Architecture — Burlington | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:38]   KES-9: created 'G4 Design Studios — Burlington | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:38]   KES-10: created 'Gabriel Stadecker Architect — Burlington | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:38] KES-1 BRIBURN
+[15:00:38]   KES-1: Do-not-contact check: **Clear**. firm and named affiliates checked: BRIBURN.
+[15:00:38]   KES-1: Moved to In Progress to start research.
+[15:00:38]   KES-1: Research: sourced fact — BRIBURN received the AIA Maine Citation Award for Excellence in Architecture - West End Garden House 2025.
+[15:00:38]   KES-1: Draft: wrote email (80 words), opening with the sourced fact ([source](https://briburn.com/studio/)). Approved claims only, standard sign-off.
+[15:00:38]   KES-1: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:38] KES-2 RDS Architects
+[15:00:38]   KES-2: Do-not-contact check: **Clear**. firm and named affiliates checked: RDS Architects.
+[15:00:38]   KES-2: Moved to In Progress to start research.
+[15:00:38]   KES-2: Research: sourced fact — RDS Architects dates back to 2010.
+[15:00:38]   KES-2: Draft: wrote email (72 words), opening with the sourced fact ([source](https://rdsarchs.com/)). Approved claims only, standard sign-off.
+[15:00:38]   KES-2: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:38] KES-3 Ryan Senatore Architecture
+[15:00:38]   KES-3: Do-not-contact check: **Clear**. firm and named affiliates checked: Ryan Senatore Architecture.
+[15:00:38]   KES-3: Moved to In Progress to start research.
+[15:00:38]   KES-3: Research: sourced fact — Ryan Senatore Architecture's portfolio includes the Hiawatha project.
+[15:00:38]   KES-3: Draft: wrote email (69 words), opening with the sourced fact ([source](http://senatorearchitecture.com/project/hiawatha/)). Approved claims only, standard sign-off.
+[15:00:38]   KES-3: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:38] KES-4 Casco Bay Design Workshop
+[15:00:38]   KES-4: Do-not-contact check: **Clear**. firm and named affiliates checked: Casco Bay Design Workshop.
+[15:00:38]   KES-4: Moved to In Progress to start research.
+[15:00:38]   KES-4: Moved to Canceled and marked DROPPED. Reason: website does not load (https://www.cascobaydesignworkshop.com did not load (direct request and reader both failed; domain is not registered: NXDOMAIN)); not replaced with another firm per SOP
+[15:00:38] KES-5 Ervin Architecture
+[15:00:38]   KES-5: Do-not-contact check: **Clear**. firm and named affiliates checked: Ervin Architecture.
+[15:00:38]   KES-5: Moved to In Progress to start research.
+[15:00:38]   KES-5: Research: sourced fact — Ervin Architecture received the MEREDA (Maine Real Estate & Development Association) Project of the Year 2023 for Maine Savings Amphitheater.
+[15:00:38]   KES-5: Draft: wrote email (80 words), opening with the sourced fact ([source](https://ervinarchitecture.com/press-awards/)). Approved claims only, standard sign-off.
+[15:00:38]   KES-5: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:38] KES-6 Providence Architecture & Building Co.
+[15:00:38]   KES-6: Do-not-contact check: **Match** with The Providence Group (Existing Kestrel customer). affiliate 'The Providence Group' matches do-not-contact entry 'The Providence Group'. No research or drafting done.
+[15:00:38]   KES-6: Moved to Canceled and marked DROPPED. Reason: do-not-contact match — The Providence Group (Existing Kestrel customer)
+[15:00:38] KES-7 Jonathan Chambers Architects
+[15:00:38]   KES-7: Do-not-contact check: **Clear**. firm and named affiliates checked: Jonathan Chambers Architects.
+[15:00:38]   KES-7: Moved to In Progress to start research.
+[15:00:38]   KES-7: Research: sourced fact — Jonathan Chambers Architects' portfolio includes the Raffa Yoga project.
+[15:00:38]   KES-7: Draft: wrote email (73 words), opening with the sourced fact ([source](https://www.jcari.com/raffa-yoga)). Approved claims only, standard sign-off.
+[15:00:38]   KES-7: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:38] KES-8 studioblue Architecture
+[15:00:38]   KES-8: Do-not-contact check: **Clear**. firm and named affiliates checked: studioblue Architecture.
+[15:00:38]   KES-8: Moved to In Progress to start research.
+[15:00:38]   KES-8: Research: sourced fact — studioblue Architecture dates back to 2008.
+[15:00:38]   KES-8: Draft: wrote email (77 words), opening with the sourced fact ([source](https://www.studiobluearchitecture.com/about)). Approved claims only, standard sign-off.
+[15:00:38]   KES-8: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:38] KES-9 G4 Design Studios
+[15:00:38]   KES-9: Do-not-contact check: **Clear**. firm and named affiliates checked: G4 Design Studios.
+[15:00:38]   KES-9: Moved to In Progress to start research.
+[15:00:38]   KES-9: Research: sourced fact — G4 Design Studios dates back to 2001.
+[15:00:38]   KES-9: Draft: wrote email (73 words), opening with the sourced fact ([source](https://www.g4designstudios.com/meet-the-g4-team)). Approved claims only, standard sign-off.
+[15:00:38]   KES-9: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:38] KES-10 Gabriel Stadecker Architect
+[15:00:38]   KES-10: Do-not-contact check: **Clear**. firm and named affiliates checked: Gabriel Stadecker Architect.
+[15:00:38]   KES-10: Moved to In Progress to start research.
+[15:00:38]   KES-10: Research: sourced fact — Gabriel Stadecker Architect's portfolio includes the 1812 Tavern House project.
+[15:00:38]   KES-10: Draft: wrote email (73 words), opening with the sourced fact ([source](https://www.stadecker.com/work/architecture/1812-tavern-house/)). Approved claims only, standard sign-off.
+[15:00:38]   KES-10: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:38] daily update written: outbox/2026-10-05_1500_Kestrel_Outbound_Update_5_October_2026.eml
+[15:00:38] [simulated] nbakshi@invictus.ai accepted the invite and joined the workspace
+[15:00:38]   KES-1: Assigned to Nirbhay for approval now that they have joined the workspace.
+[15:00:38]   KES-2: Assigned to Nirbhay for approval now that they have joined the workspace.
+[15:00:38]   KES-3: Assigned to Nirbhay for approval now that they have joined the workspace.
+[15:00:38]   KES-5: Assigned to Nirbhay for approval now that they have joined the workspace.
+[15:00:38]   KES-7: Assigned to Nirbhay for approval now that they have joined the workspace.
+[15:00:38]   KES-8: Assigned to Nirbhay for approval now that they have joined the workspace.
+[15:00:38]   KES-9: Assigned to Nirbhay for approval now that they have joined the workspace.
+[15:00:38]   KES-10: Assigned to Nirbhay for approval now that they have joined the workspace.
+[15:00:39] document 'Guardrail note': local_linear/docs/Guardrail_note.md
+[15:00:39] document 'Part B — What I would change about this SOP': local_linear/docs/Part_B_What_I_would_change_about_this_SOP.md
+[15:00:39] project update posted (onTrack): local_linear/BOARD.md#project-updates
+[15:00:39] submission email written: outbox/2026-10-05_1500_Kestrel_Outbound_Submission_Gaurav_Pawar.eml
+[15:00:39]   KES-9: Human override of the AI draft. Reason: The agent wrote that G4 Design Studios dates back to 2001, but the source says the firm was Steve Guild Design until it was renamed in 2014. Saying G4 existed in 2001 is a small factual slip a founder would notice, so I used the site's own wording.
+[15:00:39] daily update written: outbox/2026-10-05_1500_Kestrel_Outbound_Update_5_October_2026.eml
+[15:00:39] project update posted (onTrack): local_linear/BOARD.md#project-updates
+[15:00:39] submission email written: outbox/2026-10-05_1500_Kestrel_Outbound_Submission_Gaurav_Pawar.eml
+[15:00:39] Step 1: set up Linear
+[15:00:39] created project: Kestrel Outbound
+[15:00:39] created label: Segment: Residential
+[15:00:39] created label: Segment: Commercial
+[15:00:39] created label: Segment: Mixed
+[15:00:39] created label: Source: Brief
+[15:00:39] created label: Ready for Approval
+[15:00:39] created status: In Review
+[15:00:39] invited nbakshi@invictus.ai (local stand-in: no email is sent)
+[15:00:39] Step 2: one issue per prospect
+[15:00:39]   KES-1: created 'BRIBURN — Portland | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:39]   KES-2: created 'RDS Architects — Portland | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:39]   KES-3: created 'Ryan Senatore Architecture — Portland | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:39]   KES-4: created 'Casco Bay Design Workshop — Portland | Outbound' [Source: Brief]
+[15:00:39]   KES-5: created 'Ervin Architecture — Bangor | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:39]   KES-6: created 'Providence Architecture & Building Co. — Providence | Outbound' [Segment: Residential, Source: Brief]
+[15:00:39]   KES-7: created 'Jonathan Chambers Architects — Providence | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:39]   KES-8: created 'studioblue Architecture — Burlington | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:39]   KES-9: created 'G4 Design Studios — Burlington | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:39]   KES-10: created 'Gabriel Stadecker Architect — Burlington | Outbound' [Segment: Mixed, Source: Brief]
+[15:00:39] KES-1 BRIBURN
+[15:00:39]   KES-1: Do-not-contact check: **Clear**. firm and named affiliates checked: BRIBURN.
+[15:00:39]   KES-1: Moved to In Progress to start research.
+[15:00:39]   KES-1: Research: sourced fact — BRIBURN received the AIA Maine Citation Award for Excellence in Architecture - West End Garden House 2025.
+[15:00:39]   KES-1: Draft: wrote email (80 words), opening with the sourced fact ([source](https://briburn.com/studio/)). Approved claims only, standard sign-off.
+[15:00:39]   KES-1: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:39] KES-2 RDS Architects
+[15:00:39]   KES-2: Do-not-contact check: **Clear**. firm and named affiliates checked: RDS Architects.
+[15:00:39]   KES-2: Moved to In Progress to start research.
+[15:00:39]   KES-2: Research: sourced fact — RDS Architects dates back to 2010.
+[15:00:39]   KES-2: Draft: wrote email (72 words), opening with the sourced fact ([source](https://rdsarchs.com/)). Approved claims only, standard sign-off.
+[15:00:39]   KES-2: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:39] KES-3 Ryan Senatore Architecture
+[15:00:39]   KES-3: Do-not-contact check: **Clear**. firm and named affiliates checked: Ryan Senatore Architecture.
+[15:00:39]   KES-3: Moved to In Progress to start research.
+[15:00:39]   KES-3: Research: sourced fact — Ryan Senatore Architecture's portfolio includes the Hiawatha project.
+[15:00:39]   KES-3: Draft: wrote email (69 words), opening with the sourced fact ([source](http://senatorearchitecture.com/project/hiawatha/)). Approved claims only, standard sign-off.
+[15:00:39]   KES-3: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:39] KES-4 Casco Bay Design Workshop
+[15:00:39]   KES-4: Do-not-contact check: **Clear**. firm and named affiliates checked: Casco Bay Design Workshop.
+[15:00:39]   KES-4: Moved to In Progress to start research.
+[15:00:39]   KES-4: Moved to Canceled and marked DROPPED. Reason: website does not load (https://www.cascobaydesignworkshop.com did not load (direct request and reader both failed; domain is not registered: NXDOMAIN)); not replaced with another firm per SOP
+[15:00:39] KES-5 Ervin Architecture
+[15:00:39]   KES-5: Do-not-contact check: **Clear**. firm and named affiliates checked: Ervin Architecture.
+[15:00:39]   KES-5: Moved to In Progress to start research.
+[15:00:39]   KES-5: Research: sourced fact — Ervin Architecture received the MEREDA (Maine Real Estate & Development Association) Project of the Year 2023 for Maine Savings Amphitheater.
+[15:00:39]   KES-5: Draft: wrote email (80 words), opening with the sourced fact ([source](https://ervinarchitecture.com/press-awards/)). Approved claims only, standard sign-off.
+[15:00:39]   KES-5: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:39] KES-6 Providence Architecture & Building Co.
+[15:00:39]   KES-6: Do-not-contact check: **Match** with The Providence Group (Existing Kestrel customer). affiliate 'The Providence Group' matches do-not-contact entry 'The Providence Group'. No research or drafting done.
+[15:00:39]   KES-6: Moved to Canceled and marked DROPPED. Reason: do-not-contact match — The Providence Group (Existing Kestrel customer)
+[15:00:39] KES-7 Jonathan Chambers Architects
+[15:00:39]   KES-7: Do-not-contact check: **Clear**. firm and named affiliates checked: Jonathan Chambers Architects.
+[15:00:39]   KES-7: Moved to In Progress to start research.
+[15:00:39]   KES-7: Research: sourced fact — Jonathan Chambers Architects' portfolio includes the Raffa Yoga project.
+[15:00:39]   KES-7: Draft: wrote email (73 words), opening with the sourced fact ([source](https://www.jcari.com/raffa-yoga)). Approved claims only, standard sign-off.
+[15:00:39]   KES-7: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:39] KES-8 studioblue Architecture
+[15:00:39]   KES-8: Do-not-contact check: **Clear**. firm and named affiliates checked: studioblue Architecture.
+[15:00:39]   KES-8: Moved to In Progress to start research.
+[15:00:39]   KES-8: Research: sourced fact — studioblue Architecture dates back to 2008.
+[15:00:39]   KES-8: Draft: wrote email (77 words), opening with the sourced fact ([source](https://www.studiobluearchitecture.com/about)). Approved claims only, standard sign-off.
+[15:00:39]   KES-8: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:39] KES-9 G4 Design Studios
+[15:00:39]   KES-9: Do-not-contact check: **Clear**. firm and named affiliates checked: G4 Design Studios.
+[15:00:39]   KES-9: Moved to In Progress to start research.
+[15:00:39]   KES-9: Research: sourced fact — G4 Design Studios dates back to 2001.
+[15:00:40]   KES-9: Draft: wrote email (76 words), opening with the sourced fact ([source](https://www.g4designstudios.com/meet-the-g4-team)). Approved claims only, standard sign-off.
+[15:00:40]   KES-9: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.
+[15:00:40] KES-10 Gabriel Stadecker Architect
+[15:00:40]   KES-10: Do-not-contact check: **Clear**. firm and named affiliates checked: Gabriel Stadecker Architect.
+[15:00:40]   KES-10: Moved to In Progress to start research.
+[15:00:40]   KES-10: Research: sourced fact — Gabriel Stadecker Architect's portfolio includes the 1812 Tavern House project.
+[15:00:40]   KES-10: Draft: wrote email (73 words), opening with the sourced fact ([source](https://www.stadecker.com/work/architecture/1812-tavern-house/)). Approved claims only, standard sign-off.
+[15:00:40]   KES-10: Sent for approval: moved to In Review and added Ready for Approval. Could not assign to Nirbhay yet: nbakshi@invictus.ai has been invited but has not joined the workspace.

@@ -1,6 +1,6 @@
 # Kestrel Outbound agent
 
-> **Reviewers: start with [SUBMISSION.md](SUBMISSION.md)** for setup, usage, results and every deliverable. No API key is needed: `./demo/run_demo.sh && open simulation/index.html`.
+> **See it running:** https://gpcoolc12-wq.github.io/kestrel-outbound/ (the whole run in one page). **Read first:** [SUBMISSION.md](SUBMISSION.md) covers setup, how to use the agent, and the results. To run it yourself, no API key needed: `./demo/run_demo.sh && open simulation/index.html`.
 
 This repo runs the Kestrel Rooms outbound SOP (Invictus AI take-home) end to end. For each firm, an AI agent:
 

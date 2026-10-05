@@ -1,15 +1,15 @@
 # Loom script: Kestrel Outbound (target 9 minutes, hard limit 10)
 
-The assessment asks the Loom to cover four things. This script covers them in this order:
+The video needs to answer four questions. Here's where each one is answered:
 
-| Required by the brief | Section | Time |
+| What the viewer wants to know | Section | Time |
 |---|---|---|
-| One prospect from start to finish, in Linear and in your agent | 2 and 3 | 1:00–5:00 |
-| One decision the AI tool made that you overrode, and why | 4 | 5:00–6:30 |
-| One SOP step you would change, and whether you followed it anyway | 5 | 6:30–8:00 |
-| How long the assignment took you | 7 | 8:45–9:00 |
+| What does one firm's journey look like, end to end, in the agent and on the board? | 2 and 3 | 1:00–5:00 |
+| Where did I disagree with the AI, and what did I do about it? | 4 | 5:00–6:30 |
+| Which step of the process would I change, and did I follow it anyway? | 5 | 6:30–8:00 |
+| How long did it take? | 7 | 8:45–9:00 |
 
-Section 6 (guardrails, 8:00–8:45) isn't required, but guardrail judgement is one of the five things they assess. Everything runs locally as a simulation: no API key, no real Linear, no email sent.
+Section 6 (guardrails, 8:00–8:45) is extra, but it's worth the 45 seconds: judgement on guardrails is part of how the work is judged. Everything runs locally as a simulation: no API key, no real Linear, and no email sent.
 
 ---
 

@@ -392,9 +392,11 @@ class Run:
             ws_link = base + "examples/sample-run/local_linear/BOARD.md"
             guard, partb = base + "docs/guardrails.md", base + "docs/part_b.md"
             upd = ws_link + "#project-updates"
-            intro = ("I ran the SOP as a local simulation: a file-based stand-in replaces Linear, and emails "
-                     "are written to an outbox, not sent. Setup, results and every deliverable are in "
-                     f"{base}SUBMISSION.md. One command rebuilds it, with no API key: ./demo/run_demo.sh")
+            owner, repo = agent_link.rstrip("/").split("/")[-2:]
+            intro = (f"The quickest way in is the live page, which shows the whole run: https://{owner}.github.io/{repo}/\n\n"
+                     "I ran the process as a local simulation: a small stand-in replaces Linear, and emails were saved "
+                     f"to an outbox rather than sent. Setup, results and everything else are in {base}SUBMISSION.md, and "
+                     "one command rebuilds it all without an API key: ./demo/run_demo.sh")
         else:
             ws_link, upd = self.state.get("project_url", ""), url
             guard = docs.get("Guardrail note", "")

@@ -45,13 +45,17 @@ def main():
         print(json.dumps(rec, indent=2) if a.json else f"DROP: {e}")
         return
     say("      read " + ", ".join(f"{p.url} ({p.via})" for p in pages))
+    rec["engine"] = A.engine()
+    rec["pages_read"] = [{"url": p.url, "via": p.via} for p in pages]
 
     prof = A.segment_and_affiliates(a.firm, pages)
     rec["segment_line"] = f"{prof.segment} — {prof.segment_reason} (source: {prof.segment_url})"
+    rec["profile"] = A.to_dict(prof)
     say(f"[2/4] Segment: {prof.segment} — \"{prof.segment_quote}\" ({prof.segment_url})")
     say(f"      Affiliates named on site: {[x['name'] for x in prof.affiliates] or 'none'}")
 
     dnc = A.dnc_check(a.firm, prof.affiliates, " ".join(p.text for p in pages), cfg["do_not_contact"])
+    rec["dnc"] = dnc
     rec["dnc_line"] = dnc["result"] + ("" if dnc["result"] == "Clear" else f" — {dnc['company']}: {dnc['reason']}")
     say(f"[3/4] Do-not-contact: {dnc['result']} — {dnc['detail']}")
     if dnc["result"] == "Match":
@@ -72,6 +76,7 @@ def main():
         print(json.dumps(rec, indent=2) if a.json else "BLOCKED: no fact could be sourced.")
         return
     rec["fact"] = A.to_dict(fact)
+    rec["fact_trail"] = trail
     say(f"[4/4] Fact: {fact.fact}\n      Quote: \"{fact.quote}\"\n      Source: {fact.url}")
 
     page = next(p for p in pages if p.url == fact.url)
@@ -86,6 +91,7 @@ def main():
         print(json.dumps(rec, indent=2) if a.json else "BLOCKED: every draft failed the guardrails.")
         return
     rec["draft"] = draft
+    rec["draft_trail"] = dtrail
     rec["status_note"] = "Draft ready for approval."
     rec["result"] = "READY"
     if a.json:

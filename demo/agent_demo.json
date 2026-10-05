@@ -1,0 +1,97 @@
+{
+  "firm": "Whitten Architects",
+  "website": "https://www.whittenarchitects.com",
+  "city": "Portland",
+  "engine": "offline",
+  "pages_read": [
+    {
+      "url": "https://www.whittenarchitects.com/",
+      "via": "direct"
+    },
+    {
+      "url": "https://www.whittenarchitects.com/about",
+      "via": "direct"
+    },
+    {
+      "url": "https://www.whittenarchitects.com/projects",
+      "via": "direct"
+    },
+    {
+      "url": "https://www.whittenarchitects.com/about/press",
+      "via": "direct"
+    },
+    {
+      "url": "https://www.whittenarchitects.com/about/our-team",
+      "via": "direct"
+    },
+    {
+      "url": "https://www.whittenarchitects.com/about/sketches",
+      "via": "direct"
+    },
+    {
+      "url": "https://www.whittenarchitects.com/projects/treetops",
+      "via": "direct"
+    },
+    {
+      "url": "https://www.whittenarchitects.com/projects/moes-cove",
+      "via": "direct"
+    }
+  ],
+  "segment_line": "Residential \u2014 site mentions residential work 187x and commercial/institutional work 3x (source: https://www.whittenarchitects.com/about)",
+  "profile": {
+    "segment": "Residential",
+    "segment_reason": "site mentions residential work 187x and commercial/institutional work 3x",
+    "segment_quote": "With a focus exclusively on residential design, we are experts in a variety of project types \u2014 from camps to cottages, new homes to historic renovations.",
+    "segment_url": "https://www.whittenarchitects.com/about",
+    "affiliates": []
+  },
+  "dnc": {
+    "result": "Clear",
+    "detail": "firm and named affiliates checked: Whitten Architects"
+  },
+  "dnc_line": "Clear",
+  "fact": {
+    "fact": "Whitten Architects' portfolio includes the Treetops project.",
+    "quote": "Treetops",
+    "url": "https://www.whittenarchitects.com/projects/treetops",
+    "kind": "project"
+  },
+  "fact_trail": [
+    {
+      "kind": "project",
+      "fact": "Whitten Architects' portfolio includes the Treetops project.",
+      "url": "https://www.whittenarchitects.com/projects/treetops",
+      "verified": true,
+      "engine": "offline"
+    },
+    {
+      "kind": "project",
+      "fact": "Whitten Architects' portfolio includes the Moe's Cove project.",
+      "url": "https://www.whittenarchitects.com/projects/moes-cove",
+      "verified": true,
+      "engine": "offline"
+    },
+    {
+      "chosen": "Whitten Architects' portfolio includes the Treetops project."
+    }
+  ],
+  "draft": {
+    "subject": "Your Treetops project",
+    "body": "I was looking at your Treetops project. A project like that usually means plenty of model-shop time and client walk-throughs.\n\nWith Kestrel Rooms you can book rooms, plotters and the model shop from one calendar. It works with Google Calendar and Microsoft Outlook, and setup takes less than a day.\n\nOpen to a 15-minute call? Or start the free 30-day trial, no card needed.\n\nBest,\nThe Kestrel Rooms team",
+    "words": 69,
+    "attempts": 1,
+    "engine": "offline"
+  },
+  "draft_trail": [
+    {
+      "attempt": 1,
+      "subject": "Your Treetops project",
+      "opener": "I was looking at your Treetops project. A project like that usually means plenty of model-shop time and client walk-throughs.",
+      "violations": [],
+      "style": [],
+      "engine": "offline"
+    }
+  ],
+  "status_note": "Draft ready for approval.",
+  "result": "READY"
+}

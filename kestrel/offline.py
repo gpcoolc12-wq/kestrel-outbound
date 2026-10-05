@@ -19,6 +19,8 @@ COM = (r"\b(commercial|office|offices|retail|restaurants?|schools?|institutional
 AFFIL = re.compile(r"(?:affiliate(?: company)?|subsidiary|division|sister company|parent company)\s+of\s+"
                    r"((?:[Tt]he\s+)?[A-Z][\w&'+-]*(?:\s+(?:[A-Z][\w&'+-]*|&|\+|of|and))*)")
 AWARD_KW = re.compile(r"Award|of the Year|Prize")
+HEADLINE = re.compile(r"\b(?:Announced|Announces|Announcing|Winners|Finalists?|Shortlist(?:ed)?|Nominees?|Call for|"
+                      r"Entries|Deadline|Ceremony|Gala|Submissions?)\b", re.I)
 FOR_TAIL = r"\s+for(?:\s+[A-Z][\w'’-]*(?![\w'’-])(?!\s\()){1,3}"  # "for Maine Savings Amphitheater", not "for KANU MEREDA (..."
 GENERIC = {"about", "about-us", "contact", "home", "work", "projects", "project", "portfolio", "residential",
            "commercial", "institutional", "studio", "team", "people", "news", "press", "blog", "careers", "services",
@@ -109,6 +111,7 @@ def _project_name(page, firm):
         slug = urlparse(page.url).path.rstrip("/").split("/")[-1]
         title = slug.replace("-", " ").title()
         title = re.sub(r"\s\d+(\s\d+)*$", "", title)  # "colchester-lake-house-1-2" -> "Colchester Lake House"
+    title = title.split(",")[0].strip()  # "Treetops, Kennebunkport, Maine" -> "Treetops"
     return title if title and G.quote_in_page(title, page.text) or (title and G.norm(title) in G.norm(page.text)) else None
 
 
@@ -130,6 +133,8 @@ def research_fact(firm, pages, log=None):
             item = re.sub(r"\s+", " ", item).strip(" ,-–—:")
             item = re.sub(r"^(?:Awards?|Press|Recognition|Honors)\s+", "", item)
             kws = AWARD_KW.findall(item)
+            if HEADLINE.search(item):  # "Design Awards Winners Announced 2024" is news, not an award the firm won
+                continue
             if (len(kws) == 1 and ":" not in item and item[:1].isupper() and 5 <= len(item.split()) <= 20
                     and not re.search(r"\b(?:January|February|March|April|May|June|July|August|September|October|"
                                       r"November|December)\b", item)):
@@ -152,6 +157,8 @@ def research_fact(firm, pages, log=None):
                     words = q.split()
                     if not G.quote_in_page(q, p.text) or sum(w[:1].islower() for w in words) / max(len(words), 1) < 0.3:
                         q = name  # the heading is followed by a list of links, not a description
+                if not G.opens_with_fact(f"I was looking at your {name} project.", q):
+                    q = name  # cite the project name itself so the opener provably carries the fact
                 cands.append(("project", f"{firm}{chr(39) if firm.endswith('s') else chr(39) + 's'} portfolio includes the {name} project.", q, p.url, 0))
     for p in pages:
         for m in FOUNDED.finditer(p.text):

@@ -46,7 +46,14 @@ def load():
             "overrides": p.get("overrides", []), "history": p.get("history", []),
             "description": issue.get("description", ""), "comments": issue.get("comments", []),
         })
+    import csv
+    demo = ROOT / "demo/agent_demo.json"
     return {
+        "agent_demo": json.loads(demo.read_text()) if demo.exists() else None,
+        "brief_prospects": list(csv.DictReader(open(ROOT / "config/prospects.csv"))),
+        "email_blocks": cfg["email_blocks"], "max_words": cfg["max_words"],
+        "time_taken": cfg.get("time_taken", ""), "approver_email": cfg["linear"]["approver_email"],
+        "required_labels": cfg["linear"]["labels"], "required_statuses": list(cfg["linear"]["statuses"]),
         "workspace": {"team": ws["team"], "members": ws["members"], "invites": ws["invites"],
                       "labels": ws["labels"], "statuses": ws["statuses"], "project": ws["project"]},
         "project_updates": ws["project_updates"], "prospects": prospects, "mails": mails, "docs": docs,
@@ -139,7 +146,7 @@ border-radius:50%;background:var(--panel);border:2px solid var(--accent)}
 .tl .ev .when{font-size:11.5px;color:var(--muted)}
 .md p{margin:8px 0}.md ul{margin:6px 0;padding-left:20px}.md h2,.md h3,.md h4{margin:14px 0 6px}.md code{background:var(--panel2);padding:1px 5px;border-radius:5px;font-size:12.5px}
 .ok{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}
-.pill{font-size:11px;font-weight:600;padding:1px 7px;border-radius:999px}.pill.ok{background:var(--good-bg)}.pill.bad{background:var(--bad-bg)}.pill.warn{background:var(--warn-bg)}
+.pill{font-size:11px;font-weight:600;padding:1px 7px;border-radius:999px;white-space:nowrap}.pill.ok{background:var(--good-bg)}.pill.bad{background:var(--bad-bg)}.pill.warn{background:var(--warn-bg)}
 .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .btn{all:unset;cursor:pointer;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);font-weight:550;font-size:13px}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn:disabled{opacity:.4;cursor:default}
@@ -166,6 +173,7 @@ input[type=range]{accent-color:var(--accent)}
  <section class="tab" id="t-overview"></section><section class="tab" id="t-board"></section>
  <section class="tab" id="t-replay"></section><section class="tab" id="t-agent"></section>
  <section class="tab" id="t-outbox"></section><section class="tab" id="t-docs"></section>
+ <section class="tab" id="t-checklist"></section><section class="tab" id="t-demo"></section>
 </main>
 <div class="drawer" id="drawer"><div class="scrim" onclick="closeIssue()"></div><div class="sheet" id="sheet"></div></div>
 <script>
@@ -201,7 +209,7 @@ function md(t){
 }
 
 // ---------------------------------------------------------------- navigation
-const TABS=[["overview","Overview"],["board","Board"],["replay","Simulation replay"],["agent","Agent & guardrails"],["outbox","Outbox"],["docs","Documents"]];
+const TABS=[["overview","Overview"],["checklist","Brief & checklist"],["board","Board"],["replay","Simulation replay"],["demo","Agent demo"],["agent","Agent & guardrails"],["outbox","Outbox"],["docs","Documents"]];
 $("#nav").innerHTML = TABS.map(([k,v])=>`<button role="tab" data-t="${k}">${v}</button>`).join("");
 function show(k){ document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected", b.dataset.t===k));
   document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on", s.id==="t-"+k));
@@ -222,33 +230,39 @@ $("#badges").innerHTML = [`<span class="badge ok">✓ ${engineLabel}</span>`,`<s
 
 // ---------------------------------------------------------------- overview
 function overview(){
-  const kpis=[[P.length,"Prospects on the brief"],[inReview.length,"In Review · Ready for Approval"],[dropped.length,"Dropped (Canceled)"],
-    [rejections.length+styleRej.length,"Draft attempts rejected & regenerated"],[overrides.length,"Human overrides"],[D.mails.length,"Emails in outbox"]];
+  const kpis=[[P.length,"Firms on the list"],[inReview.length,"Drafts waiting for Nirbhay"],[dropped.length,"Closed without contact"],
+    [rejections.length+styleRej.length,"Drafts the checks sent back"],[overrides.length,"Drafts I corrected by hand"],[D.mails.length,"Emails in the outbox (unsent)"]];
   const facts=P.filter(p=>p.fact);
   const step=(n,title,detail,sim)=>`<div class="card pad step"><span class="num ${sim?'sim':''}">${sim?'~':'✓'}</span><div><span class="st">Step ${n}. ${title}</span><p>${detail}</p></div></div>`;
   const s1=`Project <b>${esc(D.workspace.project)}</b>, ${D.workspace.labels.length} labels, statuses ${D.workspace.statuses.filter(s=>STATUS.includes(s)).join(", ")}. Invited ${esc(D.workspace.invites.join(", "))}.`;
+  const facts2=facts.length, words=facts.map(p=>p.draft?.words||0).filter(Boolean);
   $("#t-overview").innerHTML = `
+  <div class="card pad" style="margin-bottom:14px"><b>What happened here</b><p class="muted" style="margin:6px 0 0">The agent worked through ten architecture firms for Kestrel Rooms the way the process asks. It set up a workspace, opened a ticket for each firm, checked who was off-limits, found one real fact about each firm, and wrote a short email that leads with it. Then it handed the drafts to Nirbhay for approval. Two firms were stopped on the way: one because it's linked to an existing customer, the other because its website doesn't exist. Nothing was actually sent.</p></div>
   <div class="grid k6">${kpis.map(([v,l])=>`<div class="card pad kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("")}</div>
-  <h2>SOP, step by step</h2>
+  <h2>How it went, step by step</h2>
   <div class="steps">
-   ${step(1,"Set up Linear",s1,true)}
-   ${step(2,"One issue per prospect",`${P.length} issues, titled “Firm — City | Outbound”, status Todo, segment label + Source: Brief from each firm's own site.`)}
-   ${step(3,"Do-not-contact first",`Firm + parent/affiliates checked before research. Matches: ${P.filter(p=>p.dnc&&p.dnc.result==="Match").map(p=>esc(p.firm)+" (affiliate of "+esc(p.dnc.company)+")").join(", ")||"none"}.`)}
-   ${step(4,"Research with the agent",`${facts.length} facts, each with a word-for-word quote checked on its source page. ${discarded.length} unverifiable candidate(s) discarded. Dead site dropped, not replaced.`)}
-   ${step(5,"Draft the email",`All drafts ≤ 90 words (${Math.min(...facts.map(p=>p.draft?.words||99))}–${Math.max(...facts.map(p=>p.draft?.words||0))}), open with the fact, approved claims only, standard sign-off${D.sign_off_confirmed?"":" (placeholder, asked Nirbhay)"}.`)}
-   ${step(6,"Send for approval",`${inReview.length} In Review with Ready for Approval, assigned to Nirbhay. None moved to Done.`)}
-   ${step(7,"Log every action",`${P.reduce((a,p)=>a+(p.history||[]).length,0)} actions, each a comment with links plus a description or status update.`)}
-   ${step(8,"Daily update",`Three-line update to Nirbhay written to the outbox.`,true)}
-   ${step(9,"Submit",`Project update (${esc(D.project_updates[0]?.health||"")}) posted; submission email with all links in the outbox.`,true)}
+   ${step(1,"Set up the workspace",`A project called “${esc(D.workspace.project)}”, the labels and stages it needs, and an invite for Nirbhay.`,true)}
+   ${step(2,"Open a ticket per firm",`${P.length} tickets. Each one is tagged with the kind of work the firm does, judged from its own website.`)}
+   ${step(3,"Check who's off-limits",`Done before any research. ${P.filter(p=>p.dnc&&p.dnc.result==="Match").map(p=>esc(p.firm)+" turned out to belong to "+esc(p.dnc.company)+", an existing customer, so it was closed").join(". ")||"No matches"}.`)}
+   ${step(4,"Find one real fact",`${facts2} facts, each traced back to the exact words on the firm's site. A firm with a dead website was closed, not replaced.`)}
+   ${step(5,"Write the email",`${Math.min(...words)}–${Math.max(...words)} words each. It opens with the fact, and the product lines are copied straight from the approved list.`)}
+   ${step(6,"Hand over for approval",`${inReview.length} drafts are with Nirbhay. Nothing was marked Done, because that's Nirbhay's decision.`)}
+   ${step(7,"Leave a trail",`Every one of the ${P.reduce((a,p)=>a+(p.history||[]).length,0)} actions left a note with a link on its ticket.`)}
+   ${step(8,"Send an end-of-day note",`Three lines for Nirbhay: what's done, what's stuck, what needs a decision.`,true)}
+   ${step(9,"Wrap up",`A status update on the project (on track) and a handover email with every link.`,true)}
   </div>
-  <p class="small muted">✓ done in the simulation · ~ simulated: in the real run this step touches Linear or email.</p>
-  <h2>Prospects</h2>
+  <p class="small muted">✓ fully done · ~ done in the simulation (a local stand-in for Linear and email)</p>
+  <h2>The workspace</h2>
+  <div class="card pad small"><div class="kv"><dt>Team</dt><dd>${esc(D.workspace.team)}</dd><dt>Project</dt><dd>${esc(D.workspace.project)}</dd>
+   <dt>Members</dt><dd>${esc(D.workspace.members.join(", "))}</dd><dt>Invited</dt><dd>${esc(D.workspace.invites.join(", "))} <span class="pill warn">acceptance simulated</span></dd>
+   <dt>Labels</dt><dd>${labels(D.workspace.labels)}</dd><dt>Statuses</dt><dd>${D.workspace.statuses.map(s=>sChip(s)).join("")}</dd></div></div>
+  <h2>The ten firms</h2>
   <div class="card tablewrap"><table><thead><tr><th>Issue</th><th>Firm</th><th>Status</th><th>Segment</th><th>Fact</th><th>Words</th></tr></thead><tbody>
   ${P.map(p=>`<tr onclick="openIssue('${p.id}')"><td class="muted">${p.id}</td><td><b>${esc(p.firm)}</b><div class="small muted">${esc(p.city)}</div></td>
    <td>${sChip(p.status)}</td><td>${labels(p.labels.filter(l=>l.startsWith("Segment")))||'<span class="muted small">—</span>'}</td>
    <td class="small">${p.fact?esc(p.fact.fact):`<span class="muted">${esc(p.status_note)}</span>`}</td><td>${p.draft?p.draft.words:"—"}</td></tr>`).join("")}
   </tbody></table></div>
-  <h2>Project update</h2>${D.project_updates.map(u=>`<div class="card pad"><div class="small muted">${esc(u.at)} · health <b class="ok">${esc(u.health)}</b></div>${md(u.body)}</div>`).join("")}`;
+  <h2>Latest project update</h2>${D.project_updates.map(u=>`<div class="card pad"><div class="small muted">${esc(u.at)} · health <b class="ok">${esc(u.health)}</b></div>${md(u.body)}</div>`).join("")}`;
 }
 
 // ---------------------------------------------------------------- board
@@ -375,6 +389,109 @@ function agent(){
    <div class="card pad small"><b>Do-not-contact</b><ul>${D.dnc_list.map(d=>`<li><b>${esc(d.company)}</b>${d.include_affiliates?" and affiliates":""}: ${esc(d.reason)}</li>`).join("")}</ul></div></div>`;
 }
 
+// ---------------------------------------------------------------- brief & checklist
+function checklist(){
+  const issues=P, real=P.filter(p=>p.draft), mails=D.mails;
+  const ev=(p,re)=>(p.history||[]).findIndex(h=>re.test(h.action));
+  const all=(arr,f)=>arr.length>0&&arr.every(f);
+  const daily=mails.find(m=>/^Kestrel Outbound Update /.test(m.subject));
+  const sub=mails.find(m=>/^Kestrel Outbound Submission /.test(m.subject));
+  const dailyLines=daily?daily.body.trim().split("\n"):[];
+  const tmpl=["Firm:","Website:","Segment:","Do-not-contact check:","Fact:","Source URL:","Subject:","Body:","Status notes"];
+  const partb=D.docs["Part B — What I would change about this SOP"]||"";
+  const casco=P.find(p=>p.site_error), dncMatch=P.filter(p=>p.dnc&&p.dnc.result==="Match");
+  const comments=P.flatMap(p=>p.comments||[]);
+  const R=(req,ok,evidence,kind,go)=>({req,st:ok===null?"pending":ok?(kind||"pass"):"fail",evidence,go});
+  const range=real.length?`${Math.min(...real.map(p=>p.draft.words))}–${Math.max(...real.map(p=>p.draft.words))}`:"";
+  const kinds=Object.entries(real.reduce((a,p)=>(a[p.fact.kind]=(a[p.fact.kind]||0)+1,a),{})).map(([k,v])=>`${v} ${k==="founding"?"founding year":k}${v>1?"s":""}`).join(", ");
+  const groups=[
+   ["House rules",[
+    R("No real emails, and nobody on the list gets contacted", true, `All ${mails.length} emails are sitting unsent in the outbox. The ten firms' websites were read, nothing more.`, "pass","outbox"),
+    R("An agent does the heavy lifting", true, "It read every website, chose the facts and wrote the drafts. I reviewed the results and corrected one.", "pass","demo"),
+    R("Questions asked before getting stuck", !!mails.find(m=>/clarifying/i.test(m.subject)), "Five questions to Nirbhay: the missing sign-off, the dead website, how strictly to match names, which numbers are allowed, and when tickets can be assigned.", "sim","outbox"),
+    R("The process is followed even where I'd do it differently", !!partb, "Every step was done in the given order. My objections are written up in Part B rather than acted on.", "pass","docs"),
+    R("Time spent", !!D.time_taken, esc(D.time_taken||"not filled in"), "pass")]],
+   ["Setting up the workspace",[
+    R("A place to track the work", D.workspace.project==="Kestrel Outbound", `A team called “${esc(D.workspace.team)}” with a project called “${esc(D.workspace.project)}”. It lives in a local stand-in for Linear.`, "sim","board"),
+    R("Nirbhay can see it", D.workspace.invites.includes(D.approver_email), `An invite went to ${esc(D.approver_email)}. Accepting it is simulated, so tickets can be handed over.`, "sim"),
+    R("Labels for segment, source and approval", all(D.required_labels,l=>D.workspace.labels.includes(l)), labels(D.required_labels)),
+    R("The right ticket stages", all(D.required_statuses,s=>D.workspace.statuses.includes(s)), `${D.required_statuses.map(sChip).join("")} “In Review” didn't exist yet, so it was added.`)]],
+   ["One ticket for each firm",[
+    R("Ten firms, ten tickets, all starting in Todo", issues.length===D.brief_prospects.length&&all(issues,p=>(p.history[0]||{}).status==="Todo"), `${issues.length} tickets, each one opened in Todo.`, "pass","board"),
+    R("Every title reads the same way", all(issues,p=>/^.+ — .+ \| Outbound( \| DROPPED)?$/.test(p.title)), `For example, “${esc(issues[0].title)}”. Closed tickets end with “| DROPPED”.`),
+    R("Every ticket uses the same layout", all(issues,p=>tmpl.every(f=>p.description.includes(f))), "Firm, website, segment, the do-not-contact result, the fact and its source, the draft, and a one-line status. Nothing is left out."),
+    R("Each ticket says what kind of firm it is and where it came from", all(issues.filter(p=>!p.site_error),p=>p.labels.includes("Source: Brief")&&p.labels.some(l=>l.startsWith("Segment:"))), `Each segment is chosen from the firm's own site, and the sentence that proves it is kept.${casco?` ${esc(casco.firm)} has no segment, because there is no site to read.`:""}`)]],
+   ["Checking who is off-limits",[
+    R("The check happens before any research", all(issues,p=>{const d=ev(p,/^Do-not-contact/), r=ev(p,/^Research/); return d>=0&&(r<0||d<r)}), "On every ticket, the do-not-contact check is logged before any research starts."),
+    R("Off-limits firms are stopped, with the reason written down", all(dncMatch,p=>p.status==="Canceled"&&p.title.endsWith("| DROPPED")&&!p.fact&&!p.draft), dncMatch.map(p=>`${esc(p.firm)}'s homepage says it belongs to ${esc(p.dnc.company)}, which is already a Kestrel customer. The ticket was closed, and nothing was researched or written.`).join(" "), "pass", dncMatch[0]&&("issue:"+dncMatch[0].id))]],
+   ["Finding something real to say",[
+    R("Research only starts once a ticket is marked as being worked on", all(issues,p=>{const i=ev(p,/^Moved to In Progress/), r=ev(p,/^Research/); return r<0||(i>=0&&i<r)}), "Every researched ticket moved to In Progress first."),
+    R("One concrete fact per firm", all(real,p=>!!p.fact), `${kinds}. Awards win over projects, and projects win over founding years.`),
+    R("Every fact can be traced back to its page", all(real,p=>p.fact.url&&p.fact.url.startsWith("http")), "Before a fact is used, its quote is matched word for word against the page it came from. Anything that doesn't match is thrown away."),
+    R("A dead website closes the ticket instead of being swapped for another firm", casco? casco.status==="Canceled"&&casco.title.endsWith("| DROPPED"):true, casco?`${esc(casco.firm)}'s domain isn't registered. The ticket was closed, and no other firm was put in its place.`:"Every website loaded.", "pass", casco&&("issue:"+casco.id))]],
+   ["Writing the email",[
+    R("Short, and it leads with the fact", all(real,p=>p.draft.words<=D.max_words), `Between ${range} words, against a limit of ${D.max_words}. The first sentence is always the fact.`),
+    R("Nothing about Kestrel that the client hasn't approved", all(real,p=>p.draft.body.includes(D.email_blocks.product)&&p.draft.body.includes(D.email_blocks.cta)), "The product lines are pasted in from the approved list and never reworded. Automatic checks catch anything else.", "pass","agent"),
+    R("Signed the same way every time", all(real,p=>p.draft.body.trim().endsWith(D.sign_off.trim())), D.sign_off_confirmed?"Uses the confirmed sign-off.":"The brief never says what Kestrel's sign-off is. A placeholder is used everywhere, and I've asked Nirbhay for the real one.", D.sign_off_confirmed?"pass":"sim"),
+    R("The draft sits on its ticket", all(real,p=>p.description.includes(p.draft.subject)), "Subject and body are in each ticket's description.")]],
+   ["Handing over for approval",[
+    R("Finished drafts go to Nirbhay", all(real,p=>p.status==="In Review"&&p.labels.includes("Ready for Approval")&&p.assignee), `All ${real.length} drafts are in review, labelled ready, and assigned to Nirbhay.`, "pass","board"),
+    R("Only Nirbhay closes a ticket as done", !P.some(p=>p.status==="Done"||(p.history||[]).some(h=>h.status==="Done")), "Nothing was marked Done. That's Nirbhay's call.")]],
+   ["Leaving a trail",[
+    R("Every action leaves a note with a link and changes the ticket", comments.length>0&&comments.every(c=>/https?:\/\//.test(c.body)), `${comments.length} notes, each with a link and each paired with a change to the ticket. You can watch them happen in the replay.`, "pass","replay")]],
+   ["End-of-day update",[
+    R("A short note to Nirbhay at the end of the day", !!daily, daily?`Subject: “${esc(daily.subject)}”`:"missing", "sim","outbox"),
+    R("Three lines: what's done, what's stuck, what needs a decision", dailyLines.length===3&&/^Done: /.test(dailyLines[0])&&/^Blocked: /.test(dailyLines[1])&&/^Needs your call: /.test(dailyLines[2]), "Exactly three lines, nothing else.")]],
+   ["Wrapping up",[
+    R("A status update on the project", !!(D.project_updates[0]&&D.project_updates[0].health), D.project_updates[0]?`Marked “on track”, with a short summary.`:"missing", "pass","overview"),
+    R("A handover email with every link in it", !!sub, sub?`Subject: “${esc(sub.subject)}”`:"missing", "sim","outbox")]],
+   ["What gets handed in",[
+    R("The workspace with all ten tickets", issues.length===10, "This page: the Board tab, and the copy in the repo.", "sim","board"),
+    R("The agent, and how to run it on any firm", !!D.agent_demo, D.agent_demo?`Code and instructions are in the repo. It was tried on ${esc(D.agent_demo.firm)}, a firm that isn't on the list.`:"agent.py", "pass","demo"),
+    R("The guardrail note", !!D.docs["Guardrail note"], "Three things the agent may never say, and how the code stops each one before a human ever sees the draft.", "pass","docs"),
+    R("Part B: what I'd change about the process", !!partb && partb.split(/\s+/).length<=650, partb?`About one page (${partb.split(/\s+/).length} words).`:"missing", "pass","docs"),
+    R("The video walkthrough", null, "Recorded separately.")]],
+  ];
+  const ICON={pass:'<span class="pill ok">✓ Done</span>',sim:'<span class="pill warn">✓ Done (simulated)</span>',fail:'<span class="pill bad">✗ Missing</span>',pending:'<span class="pill">Separate</span>'};
+  const rows=groups.flatMap(g=>g[1]); const n=k=>rows.filter(r=>r.st===k).length;
+  $("#t-checklist").innerHTML=`
+  <div class="grid k6"><div class="card pad kpi"><div class="v">${rows.length}</div><div class="l">Things asked for</div></div>
+   <div class="card pad kpi"><div class="v ok">${n("pass")}</div><div class="l">Done</div></div><div class="card pad kpi"><div class="v warn">${n("sim")}</div><div class="l">Done, in the simulation</div></div>
+   <div class="card pad kpi"><div class="v bad">${n("fail")}</div><div class="l">Missing</div></div><div class="card pad kpi"><div class="v">${n("pending")}</div><div class="l">Sent separately (the video)</div></div>
+   <div class="card pad kpi"><div class="v">${esc(D.time_taken||"—")}</div><div class="l">Time taken</div></div></div>
+  <p class="small muted">Nothing here is ticked by hand: each line is worked out from the run itself, so if something broke it would show up red. “Simulated” means it happened in the local stand-in for Linear and email, not the real services. Click a line to jump to the proof.</p>
+  ${groups.map(([g,rs])=>`<h2>${g}</h2><div class="card tablewrap"><table><tbody>${rs.map(r=>`<tr ${r.go?`onclick="go('${r.go}')"`:'style="cursor:default"'}><td style="width:150px">${ICON[r.st]}</td><td style="width:42%"><b class="small">${esc(r.req)}</b></td><td class="small muted">${r.evidence}</td></tr>`).join("")}</tbody></table></div>`).join("")}
+  <h2>The job, in short</h2>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+   <div class="card pad small"><b>Who we're writing for: Kestrel Rooms</b><p class="muted">Small design studios constantly juggle the same shared things: the meeting room, the model shop, the big plotter and the space where clients come to see work. Kestrel puts all of them on one calendar.</p>
+    <b>What the emails are allowed to say about Kestrel</b><p class="muted">These four lines are quoted exactly as the client approved them, so they are never reworded.</p><ul>${D.claims.map(c=>`<li>${esc(c)}</li>`).join("")}</ul><b>What we ask for:</b> a quick call, or a go at the free trial.</div>
+   <div class="card pad small"><b>Firms we must leave alone</b><ul>${D.dnc_list.map(d=>`<li><b>${esc(d.company)}</b>${d.include_affiliates?" and all affiliates":""}: ${esc(d.reason)}</li>`).join("")}</ul></div></div>
+  <h3>The ten firms</h3><div class="card tablewrap"><table><thead><tr><th>#</th><th>Firm</th><th>City</th><th>Website</th><th>Outcome</th></tr></thead><tbody>
+   ${D.brief_prospects.map(b=>{const p=P.find(x=>x.n===b.n);return `<tr onclick="openIssue('${p.id}')"><td>${b.n}</td><td>${esc(b.firm)}</td><td>${esc(b.city)}</td><td><a href="${esc(b.website)}" target="_blank" onclick="event.stopPropagation()">${esc(b.website)}</a></td><td>${sChip(p.status)}</td></tr>`}).join("")}</tbody></table></div>`;
+}
+function go(t){ if(t.startsWith("issue:")) openIssue(t.slice(6)); else { show(t); scrollTo(0,0) } }
+
+// ---------------------------------------------------------------- agent demo (new firm)
+function demo(){
+  const d=D.agent_demo;
+  if(!d){ $("#t-demo").innerHTML='<p class="muted">No recorded demo. Run ./demo/record_agent_demo.sh</p>'; return }
+  const ft=(d.fact_trail||[]).filter(t=>"fact" in t), dt=d.draft_trail||[];
+  const box=(n,t,b)=>`<div class="card pad step" style="margin-bottom:10px"><span class="num">${n}</span><div style="min-width:0;flex:1"><span class="st">${t}</span>${b}</div></div>`;
+  $("#t-demo").innerHTML=`<div class="card pad"><b>Does it work on a firm it has never seen?</b> To show the agent isn't tuned to the ten firms on the list, here it is on <b>${esc(d.firm)}</b>, a firm that isn't on the list. It runs in a few seconds, needs no API key, and you can repeat it with <code>./demo/record_agent_demo.sh</code>.
+   <div style="margin-top:8px">Result: <span class="pill ${d.result==="READY"?"ok":"bad"}">${d.result==="READY"?"Draft ready for approval":esc(d.result)}</span></div></div>
+  <h2>What it did, in order</h2>
+  ${box(1,`Read the website (${(d.pages_read||[]).length} pages, most useful first)`,`<ul class="small">${(d.pages_read||[]).map(p=>`<li><a href="${esc(p.url)}" target="_blank">${esc(p.url)}</a> <span class="muted">(${esc(p.via)})</span></li>`).join("")}</ul>`)}
+  ${box(2,`Decided what kind of work they do: ${esc(d.profile?.segment)}`,`<div class="small muted">${esc(d.profile?.segment_reason)}</div><div class="quote">“${esc(d.profile?.segment_quote)}”<br><a href="${esc(d.profile?.segment_url)}" target="_blank">${esc(d.profile?.segment_url)}</a></div>`)}
+  ${box(3,`Checked they're not off-limits: <span class="${d.dnc?.result==="Match"?"bad":"ok"}">${esc(d.dnc?.result)}</span>`,`<p class="small muted">${esc(d.dnc?.detail)}</p>`)}
+  ${box(4,"Looked for one real fact, and checked it against the page",`<table><tbody>${ft.map(t=>`<tr style="cursor:default"><td style="width:90px"><span class="pill ${t.verified?'ok':'bad'}">${t.verified?'verified':'discarded'}</span></td><td class="small"><span class="muted">${esc(t.kind)}</span> ${esc(t.fact)}</td></tr>`).join("")}</tbody></table>
+     ${d.fact?`<p class="small"><b>Chosen:</b> ${esc(d.fact.fact)}</p><div class="quote">“${esc(d.fact.quote)}”<br><a href="${esc(d.fact.url)}" target="_blank">${esc(d.fact.url)}</a></div>`:""}`)}
+  ${box(5,"Wrote the email, then ran the safety checks",`${dt.map(t=>{const e=[...(t.violations||[]),...(t.style||[])];return `<div class="small" style="margin:6px 0"><span class="pill ${e.length?'bad':'ok'}">attempt ${t.attempt}: ${e.length?'rejected':'accepted'}</span> ${esc(t.opener)}${e.length?`<div class="bad">${e.map(esc).join("<br>")}</div>`:""}</div>`}).join("")}
+     ${d.draft?`<div style="margin-top:10px">${emailHTML({firm:d.firm,draft:d.draft,status_note:""})}</div>`:""}`)}
+  <h2>Try it yourself</h2><div class="card pad small"><pre>git clone https://github.com/gpcoolc12-wq/kestrel-outbound.git && cd kestrel-outbound
+./demo/run_demo.sh                       # whole SOP, all 10 prospects (no key, no internet)
+.venv/bin/python agent.py --firm "Any Studio" --url https://any-studio.com --city "Any City"   # new firm (internet, no key)</pre></div>`;
+}
+
 // ---------------------------------------------------------------- outbox / docs
 function listDetail(sel, items, title, sub, body){
   let i=0; const el=$(sel);
@@ -392,7 +509,7 @@ function docs(){
   listDetail("#t-docs", items, x=>x[0], x=>x[0].startsWith("Clarifying")?"email draft":"Linear project document", x=>`<h2 style="margin-top:0">${esc(x[0])}</h2>${md(x[1])}`);
 }
 
-overview(); board(); replay(); agent(); outbox(); docs();
+overview(); board(); replay(); agent(); outbox(); docs(); checklist(); demo();
 let start="overview"; try{start=localStorage.getItem("kes-tab")||start}catch(e){}
 if(location.hash&&TABS.some(t=>"#"+t[0]===location.hash)) start=location.hash.slice(1);
 show(start);

@@ -16,4 +16,5 @@ rm -f outbox/*Update*.eml outbox/*Submission*.eml
 $P run_sop.py daily-update --local
 $P run_sop.py submit --local --agent-link "${AGENT_LINK:-https://github.com/gpcoolc12-wq/kestrel-outbound}"
 $P view.py
+cp simulation/index.html index.html   # published copy: GitHub Pages serves the repo root
 echo "Open simulation/index.html"

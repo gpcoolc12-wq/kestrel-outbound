@@ -20,24 +20,28 @@ The Loom video is sent separately.
 
 ---
 
-## 1. What was delivered
+## 1. What's here, and where to find it
 
-The whole SOP runs as a **local simulation**:
+The fastest way in is the web page. It shows the whole run in one place: the board, every ticket, a step-by-step replay, the emails, the documents, and a checklist that ticks off everything that was asked for.
 
-- **Linear** is replaced by a file-based stand-in with the same operations: project, labels, statuses, issues, comments, documents and project updates.
-- **Emails** are written to an outbox as `.eml` files. Nothing is sent to anyone, and no firm on the list is contacted.
-- **No API key** is needed. The agent's default engine is rule-based and offline, and a snapshot of the 10 prospect websites ships with the repo.
+**Live page:** https://gpcoolc12-wq.github.io/kestrel-outbound/
 
-| # | Deliverable (from the brief) | Where it is |
-|---|---|---|
-| 1 | Workspace with Nirbhay invited, all 10 issues | Simulated workspace: `local_linear/` (raw state in `workspace.json`, Markdown in `BOARD.md` and `issues/KES-*.md`). Front end: `simulation/index.html`. Snapshot in the repo: [`examples/sample-run/`](examples/sample-run/) |
-| 2 | The agent, with run instructions | This repo. Setup is in section 3 and usage in section 4. One-firm runner: `agent.py`. Full SOP pipeline: `run_sop.py` |
-| 3 | Guardrail note: three things the agent must never say, and how each is enforced at generation | [`docs/guardrails.md`](docs/guardrails.md), also posted as a project document in the workspace |
-| 4 | Part B: what I would change about the SOP, and why | [`docs/part_b.md`](docs/part_b.md), also posted as a project document in the workspace |
-| 5 | Loom | Sent separately |
-| Step 8 | Daily update email | `outbox/*Kestrel_Outbound_Update*.eml` (exactly three lines) |
-| Step 9 | Project update with health, and the submission email | Project update in the workspace (health: onTrack). `outbox/*Kestrel_Outbound_Submission*.eml` |
-| Comms | Clarifying questions to Nirbhay | [`docs/clarifying_questions.md`](docs/clarifying_questions.md), plus `outbox/*clarifying_questions.eml` |
+Everything ran as a **local simulation**:
+
+- **Linear:** a small file-based stand-in does the same jobs: project, labels, stages, tickets, notes, documents and status updates.
+- **Email:** emails are saved to an outbox instead of being sent. No firm on the list was contacted.
+- **No API key:** the agent's default engine works with plain rules, and a copy of the ten firms' websites ships with the repo. It runs anywhere in about ten seconds.
+
+| What you're looking for | Where it is |
+|---|---|
+| The workspace and the ten tickets | The live page: Board tab. A plain-text copy is in [`examples/sample-run/local_linear/BOARD.md`](examples/sample-run/local_linear/BOARD.md) |
+| The agent, and how to run it on any firm | This repo. Setup is in section 3 and usage in section 4. The page's *Agent demo* tab shows it on a firm that isn't on the list |
+| The three things the agent will never say, and how the code stops them | [`docs/guardrails.md`](docs/guardrails.md), also filed as a project document |
+| Part B: what I'd change about the process | [`docs/part_b.md`](docs/part_b.md), also filed as a project document |
+| The end-of-day note to Nirbhay | Outbox tab, or `examples/sample-run/outbox/` |
+| The project status update and the handover email | Overview tab and Outbox tab |
+| My questions to Nirbhay | [`docs/clarifying_questions.md`](docs/clarifying_questions.md) |
+| The video walkthrough | Sent separately |
 
 ---
 
