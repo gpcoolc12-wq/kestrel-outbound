@@ -406,7 +406,7 @@ class Run:
             f"2. Agent (repo + run instructions): {agent_link}",
             f"3. Guardrail note: {guard}",
             f"4. Part B: {partb}",
-            f"5. Loom: {loom}", "", f"Project update: {upd}", f"Time taken: {os.environ.get('TIME_TAKEN', '[fill in]')}",
+            f"5. Loom: {loom}", "", f"Project update: {upd}", f"Time taken: {os.environ.get('TIME_TAKEN') or CFG.get('time_taken', '[fill in]')}",
             "", "Thanks,", name])
         path = write_email(ROOT, LIN["approver_email"], f"Kestrel Outbound Submission {name}", body)
         log(f"submission email written: {path}")

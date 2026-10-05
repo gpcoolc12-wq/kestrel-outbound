@@ -14,13 +14,31 @@
   "sign_off_is_confirmed": false,
   "max_words": 90,
   "do_not_contact": [
-    {"company": "The Providence Group", "include_affiliates": true, "reason": "Existing Kestrel customer"},
-    {"company": "Hollis + Reed Architects", "include_affiliates": false, "reason": "Asked not to be contacted"},
-    {"company": "Stonecut Studio", "include_affiliates": false, "reason": "Asked not to be contacted"}
+    {
+      "company": "The Providence Group",
+      "include_affiliates": true,
+      "reason": "Existing Kestrel customer"
+    },
+    {
+      "company": "Hollis + Reed Architects",
+      "include_affiliates": false,
+      "reason": "Asked not to be contacted"
+    },
+    {
+      "company": "Stonecut Studio",
+      "include_affiliates": false,
+      "reason": "Asked not to be contacted"
+    }
   ],
   "linear": {
     "project": "Kestrel Outbound",
-    "labels": ["Segment: Residential", "Segment: Commercial", "Segment: Mixed", "Source: Brief", "Ready for Approval"],
+    "labels": [
+      "Segment: Residential",
+      "Segment: Commercial",
+      "Segment: Mixed",
+      "Source: Brief",
+      "Ready for Approval"
+    ],
     "statuses": {
       "Todo": "unstarted",
       "In Progress": "started",
@@ -30,5 +48,6 @@
     },
     "approver_name": "Nirbhay",
     "approver_email": "nbakshi@invictus.ai"
-  }
+  },
+  "time_taken": "5 hours"
 }

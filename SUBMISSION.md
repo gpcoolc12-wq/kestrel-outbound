@@ -4,7 +4,7 @@
 
 **Repo:** https://github.com/gpcoolc12-wq/kestrel-outbound (public)
 
-**Time taken:** [fill in]
+**Time taken:** 5 hours
 
 This document covers:
 1. What was delivered

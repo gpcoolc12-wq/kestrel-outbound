@@ -36,8 +36,6 @@ cd ~/Downloads/kestrel-outbound && ./demo/run_demo.sh && open simulation/index.h
 
 **5. Loom settings:** "Screen + Camera", one screen, mic checked. Turn on Do Not Disturb.
 
-**6. Fill in `[TIME TAKEN]`** below.
-
 ---
 
 ## Part 2: The script
@@ -130,7 +128,7 @@ Normal type is what you say. **Bold lines** are what you do on screen.
 
 ### 7. Time and close (8:45–9:00)
 
-> All in, this took me [TIME TAKEN]. The repo is public, and one command rebuilds this whole demo without any key. The links are in my submission email. Thanks, Nirbhay.
+> All in, this took me 5 hours. The repo is public, and one command rebuilds this whole demo without any key. The links are in my submission email. Thanks, Nirbhay.
 
 **Stop recording.**
 
