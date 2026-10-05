@@ -152,7 +152,7 @@ def research_fact(firm, pages, log=None):
                     words = q.split()
                     if not G.quote_in_page(q, p.text) or sum(w[:1].islower() for w in words) / max(len(words), 1) < 0.3:
                         q = name  # the heading is followed by a list of links, not a description
-                cands.append(("project", f"{firm}'s portfolio includes the {name} project.", q, p.url, 0))
+                cands.append(("project", f"{firm}{chr(39) if firm.endswith('s') else chr(39) + 's'} portfolio includes the {name} project.", q, p.url, 0))
     for p in pages:
         for m in FOUNDED.finditer(p.text):
             q = re.sub(r"\s+", " ", m.group(1)).strip()

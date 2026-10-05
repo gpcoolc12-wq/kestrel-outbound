@@ -1,5 +1,7 @@
 # Kestrel Outbound agent
 
+> **Reviewers: start with [SUBMISSION.md](SUBMISSION.md)** for setup, usage, results and every deliverable. No API key is needed: `./demo/run_demo.sh && open simulation/index.html`.
+
 This repo runs the Kestrel Rooms outbound SOP (Invictus AI take-home) end to end. For each firm, an AI agent:
 
 1. reads the firm's public website,
