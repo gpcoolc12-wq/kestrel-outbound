@@ -1,6 +1,6 @@
 **Scope:** what the Kestrel outbound agent must never say, and how each rule is enforced while the email is being generated, before any human reviews it. The code is in `kestrel/guardrails.py`, and `tests/test_guardrails.py` proves each rule blocks its violation.
 
-**How every email is built.** The model never writes about Kestrel. It writes two things only: a subject line, and an opener of one or two sentences about the prospect. Code then appends the approved product sentence, the approved call to action and the sign-off, copied verbatim from `config/kestrel.json`. Every draft goes through `validate_email()`. If any check fails, the draft is rejected and the exact violations go back to the model to regenerate. After 3 failed attempts the agent returns **no email** and the issue is marked Blocked. A bad draft never reaches review.
+**How every email is built.** This applies to both engines: the default offline rules and the optional LLM. The agent never writes about Kestrel. It writes two things only: a subject line, and an opener of one or two sentences about the prospect. Code then appends the approved product sentence, the approved call to action and the sign-off, copied verbatim from `config/kestrel.json`. Every draft goes through `validate_email()`. If any check fails, the draft is rejected and the exact violations go back to the model to regenerate. After 3 failed attempts the agent returns **no email** and the issue is marked Blocked. A bad draft never reaches review.
 
 ## 1. Never say anything about Kestrel beyond the four approved claims
 

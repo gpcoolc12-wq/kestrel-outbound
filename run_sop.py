@@ -9,6 +9,8 @@
   python run_sop.py submit               Step 9: project update + submission email to outbox/
   python run_sop.py status               Print where every prospect stands
   python run_sop.py ask                  Write the clarifying-questions email to outbox/
+  python run_sop.py rework [--issue KES-1,KES-2] --reason "..."
+                                         Reopen In Review issues and redo Steps 4-6 (logged)
   python run_sop.py accept-invite        --local only: simulate Nirbhay accepting the invite
   python run_sop.py override --issue KES-10 --opener "..." [--subject "..."] --reason "..."
                                          Human override of a draft: re-checked by the same guardrails,
@@ -26,6 +28,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -77,24 +80,45 @@ class Run:
     # Step 7: every action = one comment with links + one description/status update. Always both.
     def act(self, rec: dict, comment: str, *, status: str | None = None, title: str | None = None,
             labels: list | None = None, assignee: str | None = None):
-        rec["history"].append({"at": datetime.now().isoformat(timespec="seconds"), "action": comment.split("\n")[0]})
         if status:
             rec["status"] = status
         if title:
             rec["title"] = title
         if labels is not None:
             rec["labels"] = labels
+        if assignee:
+            rec["assignee"] = APPROVER
+        self.snapshot(rec, comment)
         self.be.update_issue(rec["issue_id"], title=title, description=render(rec), state=status,
                              labels=labels, assignee_id=assignee)
         self.be.comment(rec["issue_id"], comment)
         self.save()
         log(f"  {rec['identifier']}: {comment.splitlines()[0]}")
 
+    def snapshot(self, rec, comment):
+        """History entry with a global sequence number and the issue's state after the action,
+        so the viewer can replay the run step by step."""
+        self.state["seq"] = self.state.get("seq", 0) + 1
+        rec["history"].append({"seq": self.state["seq"], "at": datetime.now().isoformat(timespec="seconds"),
+                               "action": comment.split("\n")[0], "comment": comment, "status": rec["status"],
+                               "title": rec["title"], "labels": list(rec["labels"]),
+                               "assignee": rec.get("assignee")})
+
     # ---------------------------------------------------------------- site cache
     def pages(self, rec) -> list[Page]:
+        """Website pages for a prospect: the run's cache, else the bundled demo snapshot
+        (demo/site_snapshot, used unless LIVE_FETCH=1), else a live fetch."""
         f = self.cache / f"{rec['n']}.json"
         if f.exists():
             return [Page(**p) for p in json.loads(f.read_text())]
+        snap = ROOT / "demo" / "site_snapshot"
+        if os.environ.get("LIVE_FETCH") != "1" and snap.exists():
+            if (snap / f"{rec['n']}.unreachable.json").exists():
+                raise SiteUnreachable(json.loads((snap / f"{rec['n']}.unreachable.json").read_text())["error"])
+            if (snap / f"{rec['n']}.json").exists():
+                self.cache.mkdir(parents=True, exist_ok=True)
+                f.write_text((snap / f"{rec['n']}.json").read_text())
+                return [Page(**p) for p in json.loads(f.read_text())]
         pages = read_site(rec["website"])
         self.cache.mkdir(parents=True, exist_ok=True)
         f.write_text(json.dumps([p.__dict__ for p in pages]))
@@ -174,7 +198,7 @@ class Run:
         rec.update(issue_id=issue["id"], identifier=issue["identifier"], url=issue["url"])
         self.state["prospects"][row["n"]] = rec
         self.be.comment(rec["issue_id"], comment)
-        rec["history"].append({"at": datetime.now().isoformat(timespec="seconds"), "action": "created"})
+        self.snapshot(rec, comment)
         self.save()
         log(f"  {rec['identifier']}: created '{rec['title']}' [{', '.join(labels)}]")
 
@@ -385,6 +409,30 @@ class Run:
                       f"Re-checked by the same guardrails: pass ({rec['draft']['words']} words). "
                       f"Source: [{rec['fact']['url']}]({rec['fact']['url']})")
 
+    def rework(self, idents: str | None, reason: str):
+        """Reopen In Review issues and redo research + drafting with the current agent.
+        Every reopen is itself a logged action (comment + status/description update)."""
+        self._ready()
+        targets = [p for p in self.state["prospects"].values() if p["status"] == "In Review"
+                   and (not idents or p["identifier"] in idents.split(","))]
+        for rec in targets:
+            old = rec.get("draft", {}).get("body", "").split("\n\n")[0]
+            rec.setdefault("previous_versions", []).append(
+                {"fact": rec.get("fact"), "draft": rec.get("draft"), "overrides": rec.get("overrides", [])})
+            for k in ("fact", "draft", "fact_trail", "draft_trail", "overrides", "assigned"):
+                rec.pop(k, None)
+            rec["status_note"] = "Reopened for re-research with the updated agent."
+            labels = [l for l in rec["labels"] if l != "Ready for Approval"]
+            self.act(rec, f"Reopened: moved back to In Progress and removed Ready for Approval. Reason: {reason}\n\n"
+                          f"Previous opener: \"{old}\"", status="In Progress", labels=labels)
+        for rec in targets:
+            log(f"{rec['identifier']} {rec['firm']} (rework)")
+            self.step4(rec)
+            if rec.get("fact"):
+                self.step5(rec)
+            if rec.get("draft"):
+                self.step6(rec)
+
     def ask(self):
         path = write_email(ROOT, LIN["approver_email"], "Kestrel Outbound: clarifying questions",
                            (ROOT / "docs/clarifying_questions.md").read_text())
@@ -402,7 +450,7 @@ class Run:
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["setup", "run", "assign", "docs", "daily-update", "submit", "status", "ask", "accept-invite", "override"])
+    ap.add_argument("command", choices=["setup", "run", "assign", "docs", "daily-update", "submit", "status", "ask", "accept-invite", "override", "rework"])
     ap.add_argument("--local", action="store_true", help="use the local Linear stand-in")
     ap.add_argument("--invite", action="store_true", help="setup: invite the approver to the workspace")
     ap.add_argument("--name", default="Gaurav Pawar")
@@ -420,7 +468,8 @@ def main():
     {"setup": lambda: r.setup(a.invite), "run": r.run, "assign": r.assign, "docs": r.docs,
      "daily-update": r.daily_update, "submit": lambda: r.submit(a.name, a.health, a.agent_link, a.loom),
      "status": r.status, "ask": r.ask, "accept-invite": r.accept_invite,
-     "override": lambda: r.override(a.issue, a.opener, a.subject, a.reason)}[a.command]()
+     "override": lambda: r.override(a.issue, a.opener, a.subject, a.reason),
+     "rework": lambda: r.rework(a.issue, a.reason or "agent updated")}[a.command]()
 
 
 if __name__ == "__main__":

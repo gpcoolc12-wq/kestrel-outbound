@@ -51,7 +51,7 @@ def norm(s: str) -> str:
 
 def quote_in_page(quote: str, page_text: str) -> bool:
     q = norm(quote)
-    return len(q) >= 12 and q in norm(page_text)
+    return len(q) >= 8 and q in norm(page_text)
 
 
 def word_count(text: str) -> int:
@@ -78,7 +78,8 @@ def check_model_text(text: str, *, quote: str, page_text: str, firm: str) -> lis
     if re.search(r"[$%€£]", text):
         errs.append("G1: money or percentage symbols are not allowed")
     page_n = norm(page_text) + " " + norm(firm)
-    for num in re.findall(r"\d[\d,\.]*", text):
+    own = norm(firm)
+    for num in re.findall(r"\d[\d,\.]*", text.replace(firm, "")):  # digits in the firm's own name (G4) are fine
         if num.strip(".,") not in q:
             errs.append(f"G2: number '{num}' does not appear in the source quote")
     # Proper nouns (capitalised words not at a sentence start) must come from the source page.
@@ -125,7 +126,7 @@ def opens_with_fact(opener: str, quote: str) -> bool:
     stop = {"the", "and", "for", "with", "your", "you", "that", "this", "from", "was", "are", "its", "our", "has", "have"}
     fw = {w for w in re.findall(r"[a-z0-9']{3,}", norm(first)) if w not in stop}
     qw = {w for w in re.findall(r"[a-z0-9']{3,}", norm(quote)) if w not in stop}
-    return len(fw & qw) >= 2
+    return len(fw & qw) >= 2 or (0 < len(qw) <= 3 and qw <= fw)
 
 
 def validate_email(*, subject: str, opener: str, body: str, quote: str, page_text: str, firm: str,

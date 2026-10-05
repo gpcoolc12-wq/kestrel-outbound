@@ -3,6 +3,10 @@
 # Output: local_linear/ (workspace), outbox/ (emails), simulation/index.html (viewer).
 set -euo pipefail
 cd "$(dirname "$0")"
+# No API key needed: the offline engine and the bundled website snapshot are the defaults.
+#   AGENT_ENGINE=model ./simulate.sh   use the LLM (needs OPENROUTER_API_KEY)
+#   LIVE_FETCH=1 ./simulate.sh         read the live websites instead of demo/site_snapshot
+export AGENT_ENGINE="${AGENT_ENGINE:-offline}"
 [ -d .venv ] || { python3 -m venv .venv && .venv/bin/pip install -q -r requirements.txt; }
 P=.venv/bin/python
 [ "${1:-}" = "--fresh" ] && rm -rf state local_linear outbox logs simulation

@@ -61,8 +61,12 @@ def main():
 
     trail = []
     fact = A.research_fact(a.firm, pages, log=trail)
+    say(f"      engine: {A.engine()}")
     for t in trail:
-        say(f"      candidate {'KEPT' if t['verified'] else 'DISCARDED (quote not on cited page)'}: {t['fact']}")
+        if "fact" in t:
+            say(f"      candidate [{t.get('kind') or '?'}] {'verified' if t['verified'] else 'DISCARDED (quote not on cited page)'}: {t['fact']}")
+        elif "chosen" in t:
+            say(f"      chosen (award > named project > founding year): {t['chosen']}")
     if not fact:
         rec.update(result="BLOCKED", reason="no verifiable fact")
         print(json.dumps(rec, indent=2) if a.json else "BLOCKED: no fact could be sourced.")
@@ -75,8 +79,8 @@ def main():
     dtrail = []
     draft = A.draft_email(a.firm, fact, page.text, cfg, blocklist, log=dtrail)
     for t in dtrail:
-        if t["violations"]:
-            say(f"      draft {t['attempt']} REJECTED by guardrails: {t['violations']}")
+        if t.get("violations") or t.get("style"):
+            say(f"      draft {t['attempt']} REJECTED: {(t.get('violations') or []) + (t.get('style') or [])}")
     if not draft:
         rec.update(result="BLOCKED", reason="all drafts failed guardrails", draft_trail=dtrail)
         print(json.dumps(rec, indent=2) if a.json else "BLOCKED: every draft failed the guardrails.")

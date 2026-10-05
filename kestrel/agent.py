@@ -8,6 +8,7 @@ draft_email             -> Step 5 (<=90 words, opens with the fact, approved cla
 from __future__ import annotations
 
 import json
+import os
 import re
 from dataclasses import dataclass, asdict
 
@@ -16,6 +17,32 @@ from .fetch import Page
 from .llm import chat_json
 
 MAX_ATTEMPTS = 3
+
+
+def engine() -> str:
+    """'offline' (rule-based, no API key) by default. AGENT_ENGINE=model opts in to the LLM,
+    which needs OPENROUTER_API_KEY and falls back to offline if the model is unavailable."""
+    return "model" if os.environ.get("AGENT_ENGINE", "").lower() == "model" else "offline"
+
+
+def _with_fallback(name):
+    """Run the model-backed step; if no key is set, or every model fails (quota, outage),
+    use the offline rule-based version so the pipeline never depends on an API key."""
+    def deco(fn):
+        def wrapper(*a, **k):
+            from . import offline
+            if engine() == "offline":
+                return getattr(offline, name)(*a, **k)
+            try:
+                return fn(*a, **k)
+            except RuntimeError as e:
+                if "all models failed" not in str(e) and "OPENROUTER_API_KEY" not in str(e):
+                    raise
+                print(f"      model unavailable ({str(e)[:80]}...) - using offline engine for {name}")
+                return getattr(offline, name)(*a, **k)
+        wrapper.__name__ = fn.__name__
+        return wrapper
+    return deco
 
 
 def _pages_blob(pages: list[Page], per_page: int = 6000) -> str:
@@ -40,6 +67,7 @@ class Profile:
     affiliates: list           # [{"name", "relationship", "quote", "url"}] - quotes verified
 
 
+@_with_fallback("segment_and_affiliates")
 def segment_and_affiliates(firm: str, pages: list[Page]) -> Profile:
     sys = (
         "You classify architecture/design firms for a B2B outbound list, using only the firm's own website. "
@@ -105,11 +133,13 @@ class Fact:
     fact: str
     quote: str
     url: str
+    kind: str = ""
 
 
 FACT_PRIORITY = {"award": 0, "project": 1, "publication": 2, "other": 3, "founding": 4}
 
 
+@_with_fallback("research_fact")
 def research_fact(firm: str, pages: list[Page], log: list | None = None) -> Fact | None:
     """Collects candidate facts, keeps only those whose quote is verbatim on the cited page, then picks
     the best kind: a named award beats a named project beats press beats a founding year. A founding
@@ -177,6 +207,7 @@ def style_issues(opener: str, avoid: list[str]) -> list[str]:
     return errs
 
 
+@_with_fallback("draft_email")
 def draft_email(firm: str, fact: Fact, page_text: str, cfg: dict, blocklist: list[str],
                 log: list | None = None, avoid: list[str] | None = None) -> dict | None:
     avoid = avoid or []

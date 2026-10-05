@@ -17,41 +17,33 @@ It runs in two modes, and the code path is the same:
 | `--local` (simulation) | file-based stand-in in `local_linear/` | `.eml` files in `outbox/`, never sent | default; anyone can run it |
 | Linear | real workspace via the GraphQL API (`LINEAR_API_KEY`) | `.eml` files in `outbox/` | real run |
 
-## See a finished run without running anything
+## No API key needed
 
-`examples/sample-run/` holds the run from 4 October 2026, covering all 10 prospects:
+The default engine is **offline**. It does rule-based research and drafting, and every result passes the same guardrails as the LLM path. A snapshot of the 10 prospect websites is bundled in `demo/site_snapshot/`, so the full demo runs with **no API key and no internet**. To use an LLM instead, set `AGENT_ENGINE=model` and an `OPENROUTER_API_KEY`. If the model is unavailable, the agent falls back to the offline engine.
 
-* `viewer.html`: download it and open it in a browser. It's a Linear-style board with every issue, comment, activity entry, project document, project update and outbox email.
-* `local_linear/BOARD.md` and `local_linear/issues/KES-*.md`: the same content as Markdown, readable on GitHub.
-* `outbox/*.eml`: the clarifying-questions email, the daily update and the submission email.
-* `run.log`: every action in order.
+## Quick start: full simulation and front end (about 10 seconds)
 
-## Quick start (full simulation, about 15–30 min on free models)
-
-Requirements: Python 3.10+, `git`, and an OpenRouter API key (https://openrouter.ai/keys; a free key works).
+Requirements: Python 3.10+ and `git`.
 
 ```bash
 git clone https://github.com/gpcoolc12-wq/kestrel-outbound.git
 cd kestrel-outbound
-cp .env.example .env              # put your key in OPENROUTER_API_KEY
-./simulate.sh --fresh             # creates .venv, installs deps, runs every SOP step locally
-open simulation/index.html        # Linear-style board: issues, comments, activity, docs, updates, outbox
+./demo/run_demo.sh              # creates .venv, runs every SOP step locally, applies the reviewed override
+open simulation/index.html      # the front end
 ```
 
-Windows: run the commands in `simulate.sh` one by one, using `.venv\Scripts\python`.
+The front end is a single self-contained HTML file with six tabs:
 
-`simulate.sh` runs, in order:
+* **Overview:** the nine SOP steps with what happened at each, KPIs and the prospect table.
+* **Board:** a Linear-style board. Click an issue to see its description (the SOP template), the email, the research (segment evidence, do-not-contact check, fact candidates, draft attempts, override) and the full activity log.
+* **Simulation replay:** steps through all ~65 logged actions in order, with the board updating as you go. Play, or use the arrow keys.
+* **Agent & guardrails:** the three "never say" rules, how each is enforced, test results, drafts rejected during the run, and human overrides with before and after.
+* **Outbox:** the clarifying questions, the daily update and the submission email (not sent).
+* **Documents:** the guardrail note, Part B and the clarifying questions.
 
-* the clarifying-questions email
-* Step 1: setup and invite
-* Steps 2–7 for all 10 prospects
-* Step 8: daily update
-* Nirbhay accepting the invite (simulated: this is the only step that stands in for another person)
-* assignment
-* the guardrail note and Part B documents
-* Step 9: project update and submission email
+`./simulate.sh --fresh` runs the pipeline alone, with no override. To read the live websites instead of the snapshot, add `LIVE_FETCH=1`. That needs internet, but still no key.
 
-Re-running is safe, because finished steps are skipped (`state/local.json`).
+A copy of the finished run is in `examples/sample-run/`. Open `viewer.html` there, or browse `local_linear/BOARD.md` on GitHub.
 
 ## Run the agent on a new firm (no Linear)
 
@@ -59,7 +51,7 @@ Re-running is safe, because finished steps are skipped (`state/local.json`).
 .venv/bin/python agent.py --firm "Whitten Architects" --url https://www.whittenarchitects.com --city Portland
 ```
 
-It prints the pages it read, the segment and its evidence, the do-not-contact result, every candidate fact (kept or discarded), and any draft the guardrails rejected. At the end it prints the issue description, filled in using the SOP template. Add `--json` for machine output.
+About 10 seconds, no key; it needs internet to read the live site. It prints the pages it read, the segment and its evidence, the do-not-contact result, every candidate fact (kept or discarded), and any draft the guardrails rejected. At the end it prints the issue description, filled in using the SOP template. Add `--json` for machine output.
 
 To add a firm to the pipeline, append a row to `config/prospects.csv` and run `run_sop.py run --local`.
 
@@ -110,9 +102,9 @@ See `docs/guardrails.md`. They are enforced in code at generation time, and `tes
 .venv/bin/python tests/test_guardrails.py
 ```
 
-## Model
+## Optional: LLM engine
 
-The agent uses OpenRouter. `OPENROUTER_MODEL` takes a comma-separated fallback chain. The default is Claude Sonnet 5.5, then free Nemotron or Laguna models. A model that is out of credits (402) or rate-limited (429) is skipped. The guardrails don't depend on the model: they are deterministic code checks.
+With `AGENT_ENGINE=model`, the agent uses OpenRouter. `OPENROUTER_MODEL` takes a comma-separated fallback chain. The default is Claude Sonnet 5.5, then free Nemotron or Laguna models. A model that is out of credits (402) or rate-limited (429) is skipped. The guardrails don't depend on the model: they are deterministic code checks.
 
 **Free-tier limits.** An OpenRouter key with no credits gets 50 free-model requests per day, and a full 10-firm run uses roughly 40–70. If the daily quota runs out, the agent retries for a few minutes and then stops with "all models failed". Re-run the same command after the quota resets (00:00 UTC). Finished steps are skipped, so it resumes where it stopped. Adding $10 of credit raises the limit to 1,000 requests a day and enables Claude Sonnet.
 
@@ -124,7 +116,9 @@ run_sop.py            the SOP pipeline (all steps)
 simulate.sh           full local simulation
 view.py               builds simulation/index.html
 kestrel/fetch.py      website reader (direct + reader fallback)
-kestrel/agent.py      segment, do-not-contact, fact research, drafting
+kestrel/agent.py      segment, do-not-contact, fact research, drafting (engine switch)
+kestrel/offline.py    offline rule-based engine (default, no API key)
+demo/                 run_demo.sh + site_snapshot/ (bundled websites for offline runs)
 kestrel/guardrails.py generation-time checks
 kestrel/backends.py   LinearBackend (GraphQL) + LocalBackend (simulation)
 tools/                check_linear_api.py - validates the Linear calls against Linear's schema
